@@ -62,7 +62,7 @@ function myFunction() {
   <?php foreach ($purchases as $purchase): ?>
   <div class="target box box-default collapsed-box">
   
-    <div class="box-header">
+    <div class="box-header with-border">
       <div class="row">
         <div class="col-sm-3"><?= h($purchase->date) ?></div>
         <div class="col-sm-2"><?= h($purchase->person_in_charge) ?></div>
@@ -80,7 +80,35 @@ function myFunction() {
       </div>
     </div><!-- /.box-header -->
     <div class="box-body">
-      The body of the box
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('person_in_charge') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('delivery_date') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('provider_id') ?></th>
+                <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+            </tr>
+          </thead>
+          <?php foreach ($pproducts as $product): ?>
+          <tbody>
+            <tr>
+              <td><?= $this->Number->format($product->id) ?></td>
+              <td><?= h($product->quantity) ?></td>
+              <td><?= $this->Number->format($product->unity) ?></td>
+              <td><?= $this->Number->format($product->cost_by_unit) ?></td>
+              <td class="actions text-right">
+                  <?= $this->Html->link(__('View'), ['action' => 'view', $product->id], ['class'=>'btn btn-info btn-xs']) ?>
+                  <?= $this->Html->link(__('Edit'), ['action' => 'edit', $product->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                  <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $product->id], ['confirm' => __('Are you sure you want to delete # {0}?', $product->id), 'class'=>'btn btn-danger btn-xs']) ?>
+              </td>
+            </tr>             
+          </tbody>
+          <?php endforeach; ?>
+        </table>
+      </div>
     </div><!-- /.box-body -->
   </div><!-- /.box -->
     <?php endforeach; ?>
