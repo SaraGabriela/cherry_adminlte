@@ -69,37 +69,4 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <i class="fa fa-share-alt"></i>
-          <h3 class="box-title"><?= __('Warehouses') ?></h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <?php if (!empty($branch->warehouses)): ?>
-          <table class="table table-hover">
-              <tr>
-                    <th scope="col"><?= __('Id') ?></th>
-                    <th scope="col"><?= __('Type') ?></th>
-                    <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
-              </tr>
-              <?php foreach ($branch->warehouses as $warehouses): ?>
-              <tr>
-                    <td><?= h($warehouses->id) ?></td>
-                    <td><?= h($warehouses->type) ?></td>
-                      <td class="actions text-right">
-                      <?= $this->Html->link(__('View'), ['controller' => 'Warehouses', 'action' => 'view', $warehouses->id], ['class'=>'btn btn-info btn-xs']) ?>
-                      <?= $this->Html->link(__('Edit'), ['controller' => 'Warehouses', 'action' => 'edit', $warehouses->id], ['class'=>'btn btn-warning btn-xs']) ?>
-                      <?= $this->Form->postLink(__('Delete'), ['controller' => 'Warehouses', 'action' => 'delete', $warehouses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $warehouses->id), 'class'=>'btn btn-danger btn-xs']) ?>
-                  </td>
-              </tr>
-              <?php endforeach; ?>
-          </table>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

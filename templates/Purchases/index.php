@@ -6,6 +6,21 @@
     <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
 </section>
+<script>
+function myFunction() {
+  var input = document.getElementById("Search");
+  var filter = input.value.toLowerCase();
+  var nodes = document.getElementsByClassName('target');
+
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.display = "block";
+    } else {
+      nodes[i].style.display = "none";
+    }
+  }
+}
+</script>
 
 <!-- Main content -->
 <section class="content">
@@ -16,15 +31,12 @@
           <h3 class="box-title"><?php echo __('List'); ?></h3>
 
           <div class="box-tools">
-            <form action="<?php echo $this->Url->build(); ?>" method="POST">
               <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
-
+                <input id="Search" onkeyup="myFunction()" placeholder="<?php echo __('Search'); ?>">
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                 </div>
               </div>
-            </form>
           </div>
         </div>
         <!-- /.box-header -->
@@ -40,22 +52,6 @@
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
-            <tbody>
-              <?php foreach ($purchases as $purchase): ?>
-                <tr>
-                  <td><?= $this->Number->format($purchase->id) ?></td>
-                  <td><?= h($purchase->date) ?></td>
-                  <td><?= h($purchase->person_in_charge) ?></td>
-                  <td><?= h($purchase->delivery_date) ?></td>
-                  <td><?= $this->Number->format($purchase->provider_id) ?></td>
-                  <td class="actions text-right">
-                      <?= $this->Html->link(__('View'), ['action' => 'view', $purchase->id], ['class'=>'btn btn-info btn-xs']) ?>
-                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchase->id], ['class'=>'btn btn-warning btn-xs']) ?>
-                      <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchase->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchase->id), 'class'=>'btn btn-danger btn-xs']) ?>
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
           </table>
         </div>
         <!-- /.box-body -->
@@ -63,4 +59,29 @@
       <!-- /.box -->
     </div>
   </div>
+  <?php foreach ($purchases as $purchase): ?>
+  <div class="target box box-default collapsed-box">
+  
+    <div class="box-header">
+      <div class="row">
+        <div class="col-sm-3"><?= h($purchase->date) ?></div>
+        <div class="col-sm-2"><?= h($purchase->person_in_charge) ?></div>
+        <div class="col-sm-3"><?= h($purchase->delivery_date) ?></div>
+        <div class="col-sm-2"><?= $this->Number->format($purchase->provider_id) ?></div>
+        <div class="col-sm-2 actions text-right">
+          <?= $this->Html->link(__('View'), ['action' => 'view', $purchase->id], ['class'=>'btn btn-info btn-xs']) ?>
+          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchase->id], ['class'=>'btn btn-warning btn-xs']) ?>
+          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchase->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchase->id), 'class'=>'btn btn-danger btn-xs']) ?>
+          <div class="box-tools pull-right">
+          <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+          </div><!-- /.box-tools -->
+        </div>
+        
+      </div>
+    </div><!-- /.box-header -->
+    <div class="box-body">
+      The body of the box
+    </div><!-- /.box-body -->
+  </div><!-- /.box -->
+    <?php endforeach; ?>
 </section>
