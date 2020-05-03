@@ -7,8 +7,6 @@ namespace App\Controller;
  * Purchases Controller
  *
  * @property \App\Model\Table\PurchasesTable $Purchases
- * @property \App\Model\Entity\PurchaseProduct[] $purchase_products
- * 
  *
  * @method \App\Model\Entity\Purchase[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
@@ -21,14 +19,12 @@ class PurchasesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Suppliers'],
+        $this->paginate=[
+            'contain' => ['Suppliers','PurchaseProducts'],
         ];
-        $purchases = $this->paginate($this->Purchases);
-        $pproducts = $this->paginate($this->purchase_products);
+        $purchase = $this->paginate($this->Purchases);
+        $this->set('purchase', $purchase);
 
-        $this->set(compact('purchases'));
-        $this->set(compact('pproducts'));
     }
 
     /**

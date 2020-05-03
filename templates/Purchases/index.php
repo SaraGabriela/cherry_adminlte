@@ -59,19 +59,19 @@ function myFunction() {
       <!-- /.box -->
     </div>
   </div>
-  <?php foreach ($purchases as $purchase): ?>
+  <?php foreach ($purchase as $purchas): ?>
   <div class="target box box-default collapsed-box">
   
     <div class="box-header with-border">
       <div class="row">
-        <div class="col-sm-3"><?= h($purchase->date) ?></div>
-        <div class="col-sm-2"><?= h($purchase->person_in_charge) ?></div>
-        <div class="col-sm-3"><?= h($purchase->delivery_date) ?></div>
-        <div class="col-sm-2"><?= $this->Number->format($purchase->provider_id) ?></div>
+        <div class="col-sm-3"><?= h($purchas->date) ?></div>
+        <div class="col-sm-2"><?= h($purchas->person_in_charge) ?></div>
+        <div class="col-sm-3"><?= h($purchas->delivery_date) ?></div>
+        <div class="col-sm-2"><?= $this->Number->format($purchas->provider_id) ?></div>
         <div class="col-sm-2 actions text-right">
-          <?= $this->Html->link(__('View'), ['action' => 'view', $purchase->id], ['class'=>'btn btn-info btn-xs']) ?>
-          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchase->id], ['class'=>'btn btn-warning btn-xs']) ?>
-          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchase->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchase->id), 'class'=>'btn btn-danger btn-xs']) ?>
+          <?= $this->Html->link(__('View'), ['action' => 'view', $purchas->id], ['class'=>'btn btn-info btn-xs']) ?>
+          <?= $this->Html->link(__('Edit'), ['action' => 'edit', $purchas->id], ['class'=>'btn btn-warning btn-xs']) ?>
+          <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $purchas->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchas->id), 'class'=>'btn btn-danger btn-xs']) ?>
           <div class="box-tools pull-right">
           <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
           </div><!-- /.box-tools -->
@@ -92,21 +92,23 @@ function myFunction() {
                 <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
             </tr>
           </thead>
-          <?php foreach ($pproducts as $product): ?>
-          <tbody>
-            <tr>
-              <td><?= $this->Number->format($product->id) ?></td>
-              <td><?= h($product->quantity) ?></td>
-              <td><?= $this->Number->format($product->unity) ?></td>
-              <td><?= $this->Number->format($product->cost_by_unit) ?></td>
-              <td class="actions text-right">
-                  <?= $this->Html->link(__('View'), ['action' => 'view', $product->id], ['class'=>'btn btn-info btn-xs']) ?>
-                  <?= $this->Html->link(__('Edit'), ['action' => 'edit', $product->id], ['class'=>'btn btn-warning btn-xs']) ?>
-                  <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $product->id], ['confirm' => __('Are you sure you want to delete # {0}?', $product->id), 'class'=>'btn btn-danger btn-xs']) ?>
-              </td>
-            </tr>             
-          </tbody>
-          <?php endforeach; ?>
+          <?php foreach ($purchas->purchase_products as $purchaseProducts): ?>
+              <tr>
+                    <td><?= h($purchaseProducts->id) ?></td>
+                    <td><?= h($purchaseProducts->quantity) ?></td>
+                    <td><?= h($purchaseProducts->unit) ?></td>
+                    <td><?= h($purchaseProducts->observations) ?></td>
+                    <td><?= h($purchaseProducts->cost_by_unit) ?></td>
+                    <td><?= h($purchaseProducts->product_id) ?></td>
+                    <td><?= h($purchaseProducts->purchase_id) ?></td>
+                    <td><?= h($purchaseProducts->warehouse_id) ?></td>
+                      <td class="actions text-right">
+                      <?= $this->Html->link(__('View'), ['controller' => 'PurchaseProducts', 'action' => 'view', $purchaseProducts->id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['controller' => 'PurchaseProducts', 'action' => 'edit', $purchaseProducts->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['controller' => 'PurchaseProducts', 'action' => 'delete', $purchaseProducts->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseProducts->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                    </td>
+              </tr>
+              <?php endforeach; ?>
         </table>
       </div>
     </div><!-- /.box-body -->

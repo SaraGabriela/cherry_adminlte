@@ -71,7 +71,7 @@ class PurchasesTable extends Table
             ->notEmptyDate('date');
 
         $validator
-            ->scalar('person_in_charge')
+            ->scalar('person_in_charPurchaseProductsge')
             ->maxLength('person_in_charge', 200)
             ->requirePresence('person_in_charge', 'create')
             ->notEmptyString('person_in_charge');
@@ -87,7 +87,7 @@ class PurchasesTable extends Table
     /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
-     *
+     *PurchaseProducts
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
