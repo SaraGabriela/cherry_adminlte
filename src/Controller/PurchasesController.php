@@ -20,7 +20,7 @@ class PurchasesController extends AppController
     public function index()
     {
         $this->paginate=[
-            'contain' => ['Suppliers','PurchaseProducts'],
+            'contain' => ['Suppliers','PurchaseProducts'=>['Products']],
         ];
         $purchase = $this->paginate($this->Purchases);
         $this->set('purchase', $purchase);

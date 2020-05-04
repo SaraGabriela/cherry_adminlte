@@ -99,9 +99,9 @@ function myFunction() {
                     <td><?= h($purchaseProducts->unit) ?></td>
                     <td><?= h($purchaseProducts->observations) ?></td>
                     <td><?= h($purchaseProducts->cost_by_unit) ?></td>
-                    <td><?= h($purchaseProducts->product_id) ?></td>
+                    <td><?= h($purchaseProducts->product->name) ?></td>
                     <td><?= h($purchaseProducts->purchase_id) ?></td>
-                    <td><?= h($purchaseProducts->warehouse_id) ?></td>
+                    <td><?= h($purchacomponentseProducts->warehouse_id) ?></td>
                       <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['controller' => 'PurchaseProducts', 'action' => 'view', $purchaseProducts->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['controller' => 'PurchaseProducts', 'action' => 'edit', $purchaseProducts->id], ['class'=>'btn btn-warning btn-xs']) ?>
