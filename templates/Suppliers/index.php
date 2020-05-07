@@ -1,9 +1,9 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Suppliers
+    Proveedores
 
-    <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
+    <div class="pull-right"><?php echo $this->Html->link(__('Crear'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
 </section>
 
@@ -13,12 +13,12 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title"><?php echo __('List'); ?></h3>
+          <h3 class="box-title"><?php echo __('Tabla de Proveedores'); ?></h3>
 
           <div class="box-tools">
             <form action="<?php echo $this->Url->build(); ?>" method="POST">
               <div class="input-group input-group-sm" style="width: 150px;">
-                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Buscar'); ?>">
 
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -32,18 +32,16 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                  <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('address') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('contact_name') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('contact_phone') ?></th>
-                  <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('address','Dirección') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('contact_name','Contacto') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('contact_phone','Telefono de contacto') ?></th>
+                  <th scope="col" class="actions text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($suppliers as $supplier): ?>
                 <tr>
-                  <td><?= $this->Number->format($supplier->id) ?></td>
                   <td><?= h($supplier->name) ?></td>
                   <td><?= h($supplier->address) ?></td>
                   <td><?= h($supplier->contact_name) ?></td>

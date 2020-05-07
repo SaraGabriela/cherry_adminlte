@@ -7,11 +7,11 @@
 <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Supplier
-      <small><?php echo __('Add'); ?></small>
+      Proveedores
+      <small><?php echo __('Crear'); ?></small>
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Tabla'); ?></a></li>
     </ol>
   </section>
 
@@ -21,23 +21,27 @@
       <div class="col-md-12">
         <!-- general form elements -->
         <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"><?php echo __('Form'); ?></h3>
-          </div>
-          <!-- /.box-header -->
           <!-- form start -->
           <?php echo $this->Form->create($supplier, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-                echo $this->Form->control('name');
-                echo $this->Form->control('address');
-                echo $this->Form->control('contact_name');
-                echo $this->Form->control('contact_phone');
+                echo $this->Form->control('name',[
+                    'label' => 'Nombre',
+                ]);
+                echo $this->Form->control('address',[
+                  'label' => 'Dirección de Proveedor'
+                ]);
+                echo $this->Form->control('contact_name',[
+                  'label' => 'Nombre de contacto'
+                ]);
+                echo $this->Form->control('contact_phone',[
+                  'label' => 'Telefono de contacto'
+                ]);
               ?>
             </div>
             <!-- /.box-body -->
 
-          <?php echo $this->Form->submit(__('Submit')); ?>
+          <?php echo $this->Form->submit(__('Crear')); ?>
 
           <?php echo $this->Form->end(); ?>
         </div>

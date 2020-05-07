@@ -33,7 +33,7 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('price') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('image') ?></th>

@@ -1,45 +1,56 @@
-<section class="content-header">
-  <h1>
-    Purchase Product
-    <small><?php echo __('View'); ?></small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
-  </ol>
-</section>
-
-<!-- Main content -->
-<section class="content">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <i class="fa fa-info"></i>
-          <h3 class="box-title"><?php echo __('Information'); ?></h3>
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\PurchaseProduct $purchaseProduct
+ */
+?>
+<div class="row">
+    <aside class="column">
+        <div class="side-nav">
+            <h4 class="heading"><?= __('Actions') ?></h4>
+            <?= $this->Html->link(__('Edit Purchase Product'), ['action' => 'edit', $purchaseProduct->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Delete Purchase Product'), ['action' => 'delete', $purchaseProduct->id], ['confirm' => __('Are you sure you want to delete # {0}?', $purchaseProduct->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('List Purchase Products'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('New Purchase Product'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <dl class="dl-horizontal">
-            <dt scope="row"><?= __('Observations') ?></dt>
-            <dd><?= h($purchaseProduct->observations) ?></dd>
-            <dt scope="row"><?= __('Product') ?></dt>
-            <dd><?= $purchaseProduct->has('product') ? $this->Html->link($purchaseProduct->product->name, ['controller' => 'Products', 'action' => 'view', $purchaseProduct->product->id]) : '' ?></dd>
-            <dt scope="row"><?= __('Purchase') ?></dt>
-            <dd><?= $purchaseProduct->has('purchase') ? $this->Html->link($purchaseProduct->purchase->id, ['controller' => 'Purchases', 'action' => 'view', $purchaseProduct->purchase->id]) : '' ?></dd>
-            <dt scope="row"><?= __('Warehouse') ?></dt>
-            <dd><?= $purchaseProduct->has('warehouse') ? $this->Html->link($purchaseProduct->warehouse->id, ['controller' => 'Warehouses', 'action' => 'view', $purchaseProduct->warehouse->id]) : '' ?></dd>
-            <dt scope="row"><?= __('Id') ?></dt>
-            <dd><?= $this->Number->format($purchaseProduct->id) ?></dd>
-            <dt scope="row"><?= __('Quantity') ?></dt>
-            <dd><?= $this->Number->format($purchaseProduct->quantity) ?></dd>
-            <dt scope="row"><?= __('Unit') ?></dt>
-            <dd><?= $this->Number->format($purchaseProduct->unit) ?></dd>
-            <dt scope="row"><?= __('Cost By Unit') ?></dt>
-            <dd><?= $this->Number->format($purchaseProduct->cost_by_unit) ?></dd>
-          </dl>
+    </aside>
+    <div class="column-responsive column-80">
+        <div class="purchaseProducts view content">
+            <h3><?= h($purchaseProduct->id) ?></h3>
+            <table>
+                <tr>
+                    <th><?= __('Observations') ?></th>
+                    <td><?= h($purchaseProduct->observations) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Product') ?></th>
+                    <td><?= $purchaseProduct->has('product') ? $this->Html->link($purchaseProduct->product->name, ['controller' => 'Products', 'action' => 'view', $purchaseProduct->product->id]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Purchase') ?></th>
+                    <td><?= $purchaseProduct->has('purchase') ? $this->Html->link($purchaseProduct->purchase->id, ['controller' => 'Purchases', 'action' => 'view', $purchaseProduct->purchase->id]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Warehouse') ?></th>
+                    <td><?= $purchaseProduct->has('warehouse') ? $this->Html->link($purchaseProduct->warehouse->id, ['controller' => 'Warehouses', 'action' => 'view', $purchaseProduct->warehouse->id]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($purchaseProduct->id) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Quantity') ?></th>
+                    <td><?= $this->Number->format($purchaseProduct->quantity) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Unit') ?></th>
+                    <td><?= $this->Number->format($purchaseProduct->unit) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Cost By Unit') ?></th>
+                    <td><?= $this->Number->format($purchaseProduct->cost_by_unit) ?></td>
+                </tr>
+            </table>
         </div>
-      </div>
     </div>
-  </div>
-
-</section>
+</div>

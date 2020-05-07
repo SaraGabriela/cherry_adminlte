@@ -34,7 +34,7 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('code') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('equivalence_id') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>

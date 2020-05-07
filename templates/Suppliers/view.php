@@ -1,10 +1,10 @@
 <section class="content-header">
   <h1>
-    Supplier
-    <small><?php echo __('View'); ?></small>
+    Proveedor
+    <small><?php echo __('Ver Proveedor'); ?></small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Tabla'); ?></a></li>
   </ol>
 </section>
 
@@ -15,20 +15,20 @@
       <div class="box box-solid">
         <div class="box-header with-border">
           <i class="fa fa-info"></i>
-          <h3 class="box-title"><?php echo __('Information'); ?></h3>
+          <h3 class="box-title"><?php echo __('Información'); ?></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <dl class="dl-horizontal">
-            <dt scope="row"><?= __('Name') ?></dt>
-            <dd><?= h($supplier->name) ?></dd>
-            <dt scope="row"><?= __('Address') ?></dt>
-            <dd><?= h($supplier->address) ?></dd>
-            <dt scope="row"><?= __('Contact Name') ?></dt>
-            <dd><?= h($supplier->contact_name) ?></dd>
-            <dt scope="row"><?= __('Id') ?></dt>
+            <dt scope="row"><?= __('Identificador') ?></dt>
             <dd><?= $this->Number->format($supplier->id) ?></dd>
-            <dt scope="row"><?= __('Contact Phone') ?></dt>
+            <dt scope="row"><?= __('Nombre de Proveedor') ?></dt>
+            <dd><?= h($supplier->name) ?></dd>
+            <dt scope="row"><?= __('Dirección de Proveedor') ?></dt>
+            <dd><?= h($supplier->address) ?></dd>
+            <dt scope="row"><?= __('Nombre del contacto') ?></dt>
+            <dd><?= h($supplier->contact_name) ?></dd>
+            <dt scope="row"><?= __('Telefono del contacto') ?></dt>
             <dd><?= $this->Number->format($supplier->contact_phone) ?></dd>
           </dl>
         </div>

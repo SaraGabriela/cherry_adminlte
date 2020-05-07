@@ -4,25 +4,45 @@
  * @var \App\Model\Entity\RawProduct $rawProduct
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Raw Products'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="rawProducts form content">
-            <?= $this->Form->create($rawProduct) ?>
-            <fieldset>
-                <legend><?= __('Add Raw Product') ?></legend>
-                <?php
+
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Raw Products
+      <small><?php echo __('Add'); ?></small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><?php echo __('Form'); ?></h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <?php echo $this->Form->create($rawProduct, ['role' => 'form']); ?>
+            <div class="box-body">
+              <?php
                     echo $this->Form->control('raw_id', ['options' => $raws]);
                     echo $this->Form->control('product_id', ['options' => $products]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+              ?>
+            </div>
+            <!-- /.box-body -->
+
+          <?php echo $this->Form->submit(__('Submit')); ?>
+
+          <?php echo $this->Form->end(); ?>
         </div>
-    </div>
-</div>
+        <!-- /.box -->
+      </div>
+  </div>
+  <!-- /.row -->
+</section>
