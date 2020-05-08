@@ -2,7 +2,6 @@
 <section class="content-header">
   <h1>
     Warehouses
-
     <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
 </section>

@@ -7,7 +7,6 @@ namespace App\Controller;
  * PurchaseProducts Controller
  *
  * @property \App\Model\Table\PurchaseProductsTable $PurchaseProducts
- *
  * @method \App\Model\Entity\PurchaseProduct[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class PurchaseProductsController extends AppController
@@ -40,52 +39,54 @@ class PurchaseProductsController extends AppController
             'contain' => ['Products', 'Purchases', 'Warehouses'],
         ]);
 
-        $this->set('purchaseProduct', $purchaseProduct);
+        $this->set('purchaseProducts', $purchaseProduct);
     }
+
 
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
-        $purchaseProduct = $this->PurchaseProducts->newEmptyEntity();
+        $purchaseProduct = $this->PurchaseProducts->newEntity();
         if ($this->request->is('post')) {
             $purchaseProduct = $this->PurchaseProducts->patchEntity($purchaseProduct, $this->request->getData());
             if ($this->PurchaseProducts->save($purchaseProduct)) {
-                $this->Flash->success(__('The purchase product has been saved.'));
+                $this->Flash->success(__('The {0} has been saved.', 'Purchase Product'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The purchase product could not be saved. Please, try again.'));
+            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Purchase Product'));
         }
         $products = $this->PurchaseProducts->Products->find('list', ['limit' => 200]);
         $purchases = $this->PurchaseProducts->Purchases->find('list', ['limit' => 200]);
         $warehouses = $this->PurchaseProducts->Warehouses->find('list', ['limit' => 200]);
         $this->set(compact('purchaseProduct', 'products', 'purchases', 'warehouses'));
     }
+
 
     /**
      * Edit method
      *
      * @param string|null $id Purchase Product id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
         $purchaseProduct = $this->PurchaseProducts->get($id, [
-            'contain' => [],
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $purchaseProduct = $this->PurchaseProducts->patchEntity($purchaseProduct, $this->request->getData());
             if ($this->PurchaseProducts->save($purchaseProduct)) {
-                $this->Flash->success(__('The purchase product has been saved.'));
+                $this->Flash->success(__('The {0} has been saved.', 'Purchase Product'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The purchase product could not be saved. Please, try again.'));
+            $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Purchase Product'));
         }
         $products = $this->PurchaseProducts->Products->find('list', ['limit' => 200]);
         $purchases = $this->PurchaseProducts->Purchases->find('list', ['limit' => 200]);
@@ -93,11 +94,12 @@ class PurchaseProductsController extends AppController
         $this->set(compact('purchaseProduct', 'products', 'purchases', 'warehouses'));
     }
 
+
     /**
      * Delete method
      *
      * @param string|null $id Purchase Product id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
+     * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
@@ -105,9 +107,9 @@ class PurchaseProductsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $purchaseProduct = $this->PurchaseProducts->get($id);
         if ($this->PurchaseProducts->delete($purchaseProduct)) {
-            $this->Flash->success(__('The purchase product has been deleted.'));
+            $this->Flash->success(__('The {0} has been deleted.', 'Purchase Product'));
         } else {
-            $this->Flash->error(__('The purchase product could not be deleted. Please, try again.'));
+            $this->Flash->error(__('The {0} could not be deleted. Please, try again.', 'Purchase Product'));
         }
 
         return $this->redirect(['action' => 'index']);

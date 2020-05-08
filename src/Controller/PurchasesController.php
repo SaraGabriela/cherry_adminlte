@@ -20,7 +20,7 @@ class PurchasesController extends AppController
     public function index()
     {
         $this->paginate=[
-            'contain' => ['Suppliers','PurchaseProducts'=>['Products']],
+            'contain' => ['Suppliers','PurchaseProducts'=>['Products','Warehouses']],
         ];
         $purchase = $this->paginate($this->Purchases);
         $this->set('purchase', $purchase);
@@ -37,7 +37,7 @@ class PurchasesController extends AppController
     public function view($id = null)
     {
         $purchase = $this->Purchases->get($id, [
-            'contain' => ['Suppliers', 'PurchaseProducts'],
+            'contain' => ['Suppliers', 'PurchaseProducts'=>['Products','Warehouses']],
         ]);
 
         $this->set('purchase', $purchase);
@@ -76,7 +76,7 @@ class PurchasesController extends AppController
     public function edit($id = null)
     {
         $purchase = $this->Purchases->get($id, [
-            'contain' => []
+            'contain' => ['Suppliers', 'PurchaseProducts'=>['Products','Warehouses']],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $purchase = $this->Purchases->patchEntity($purchase, $this->request->getData());
