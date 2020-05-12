@@ -72,10 +72,6 @@ class ProductsTable extends Table
             ->requirePresence('price', 'create')
             ->notEmptyString('price');
 
-        $validator
-            ->scalar('image')
-            ->maxLength('image', 255)
-            ->allowEmptyFile('image');
 
         $validator
             ->scalar('presentation')
@@ -88,6 +84,19 @@ class ProductsTable extends Table
             ->maxLength('brand', 255)
             ->requirePresence('brand', 'create')
             ->notEmptyString('brand');
+
+        $validator
+            ->allowEmptyFile('image')
+            ->add( 'image', [
+            'mimeType' => [
+                'rule' => [ 'mimeType', [ 'image/jpg', 'image/png', 'image/jpeg' ] ],
+                'message' => 'Please upload only jpg and png.',
+            ],
+            'fileSize' => [
+                'rule' => [ 'fileSize', '<=', '1MB' ],
+                'message' => 'Image file size must be less than 1MB.',
+            ],
+        ] );
 
         return $validator;
     }

@@ -59,9 +59,6 @@ class PreviousPreparationsController extends AppController
                     'PreparationProducts'
                 ]
             ]);
-            // Use the following to avoid validation errors:
-            //unset($this->PreviousPreparations->PreparationProducts->validate['company_id']);
-            
             if ($this->PreviousPreparations->save($previousPreparation)) {
                 $this->Flash->success(__('The previous preparation has been saved.'));
 

@@ -1,7 +1,7 @@
 <section class="content-header">
   <h1>
-    Branch
-    <small><?php echo __('View'); ?></small>
+    Sucursal
+    <small><?php echo __('Ver'); ?></small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
@@ -10,56 +10,63 @@
 
 <!-- Main content -->
 <section class="content">
-  <div class="row">
-    <div class="col-md-12">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <i class="fa fa-info"></i>
-          <h3 class="box-title"><?php echo __('Information'); ?></h3>
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <dl class="dl-horizontal">
-            <dt scope="row"><?= __('Name') ?></dt>
-            <dd><?= h($branch->name) ?></dd>
-            <dt scope="row"><?= __('Address') ?></dt>
-            <dd><?= h($branch->address) ?></dd>
-            <dt scope="row"><?= __('Person In Charge') ?></dt>
-            <dd><?= h($branch->person_in_charge) ?></dd>
-            <dt scope="row"><?= __('Id') ?></dt>
-            <dd><?= $this->Number->format($branch->id) ?></dd>
-          </dl>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-3">
+          <div class="box box-solid">
+            <!-- /.box-body -->
+              <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Detalle</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form role="form">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre:</label>
+                    <dd class="form-control"><?= h($branch->name) ?></dd>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Direccion</label>
+                    <dd class="form-control"><?= h($branch->address) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Encargado</label>
+                       <dd class="form-control"><?= h($branch->person_in_charge) ?></dd>
+                  </div>
+                </div>
+                <!-- /.box-body -->
+
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-9">
       <div class="box box-solid">
         <div class="box-header with-border">
           <i class="fa fa-share-alt"></i>
-          <h3 class="box-title"><?= __('Branch Warehouses') ?></h3>
+          <h3 class="box-title"><?= __('Almacenes') ?></h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <?php if (!empty($branch->branch_warehouses)): ?>
           <table class="table table-hover">
               <tr>
-                    <th scope="col"><?= __('Id') ?></th>
-                    <th scope="col"><?= __('Warehouse Id') ?></th>
-                    <th scope="col"><?= __('Branch Id') ?></th>
+
+                    <th scope="col"><?= __('Tipo') ?></th>
                     <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
               <?php foreach ($branch->branch_warehouses as $branchWarehouses): ?>
               <tr>
-                    <td><?= h($branchWarehouses->id) ?></td>
-                    <td><?= h($branchWarehouses->warehouse_id) ?></td>
-                    <td><?= h($branchWarehouses->branch_id) ?></td>
+                    <td><?= h($branchWarehouses->warehouse->type) ?></td>
                       <td class="actions text-right">
-                      <?= $this->Html->link(__('View'), ['controller' => 'BranchWarehouses', 'action' => 'view', $branchWarehouses->id], ['class'=>'btn btn-info btn-xs']) ?>
-                      <?= $this->Html->link(__('Edit'), ['controller' => 'BranchWarehouses', 'action' => 'edit', $branchWarehouses->id], ['class'=>'btn btn-warning btn-xs']) ?>
-                      <?= $this->Form->postLink(__('Delete'), ['controller' => 'BranchWarehouses', 'action' => 'delete', $branchWarehouses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $branchWarehouses->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                      <?= $this->Html->link(__('View'), ['controller' => 'BranchWarehouses', 'action' => 'view', $branchWarehouses->warehouse->id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['controller' => 'BranchWarehouses', 'action' => 'edit', $branchWarehouses->warehouse->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(  _('Delete'), ['controller' => 'BranchWarehouses', 'action' => 'delete', $branchWarehouses->warehouse->id], ['confirm' => __('Are you sure you want to delete # {0}?', $branchWarehouses->id), 'class'=>'btn btn-danger btn-xs']) ?>
                   </td>
               </tr>
               <?php endforeach; ?>
@@ -68,5 +75,11 @@
         </div>
       </div>
     </div>
-  </div>
+      </div>
+
+
+
+
+
+
 </section>

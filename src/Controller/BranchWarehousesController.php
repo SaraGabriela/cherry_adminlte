@@ -37,7 +37,8 @@ class BranchWarehousesController extends AppController
     public function view($id = null)
     {
         $branchWarehouse = $this->BranchWarehouses->get($id, [
-            'contain' => ['Warehouses', 'Branches', 'WarehouseProducts'],
+            'contain' => ['Warehouses', 'Branches', 'WarehouseProducts'=>['Products']],
+
         ]);
 
         $this->set('branchWarehouse', $branchWarehouse);

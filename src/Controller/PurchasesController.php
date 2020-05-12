@@ -52,8 +52,16 @@ class PurchasesController extends AppController
     public function add()
     {
         $purchase = $this->Purchases->newEmptyEntity();
+        $this->loadModel('PurchaseProducts');
         if ($this->request->is('post')) {
-            $purchase = $this->Purchases->patchEntity($purchase, $this->request->getData());
+            //$purchase = $this->Purchases->patchEntity($purchase, $this->request->getData());
+            $purchase = $this->Purchases->patchEntity($purchase, $this->request->getData(), [
+                'associated' => [
+                    'PurchaseProducts'
+                ]
+            ]);
+
+
             if ($this->Purchases->save($purchase)) {
                 $this->Flash->success(__('The {0} has been saved.', 'Purchase'));
 
@@ -62,7 +70,10 @@ class PurchasesController extends AppController
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Purchase'));
         }
         $suppliers = $this->Purchases->Suppliers->find('list', ['limit' => 200]);
-        $this->set(compact('purchase', 'suppliers'));
+        $products = $this->PurchaseProducts->Products->find('list', ['limit' => 200]);
+        
+        $warehouses = $this->PurchaseProducts->Warehouses->find('list', ['limit' => 200]);
+        $this->set(compact('purchase', 'suppliers', 'products','warehouses'));
     }
 
 

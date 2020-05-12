@@ -41,7 +41,7 @@ class WarehousesTable extends Table
         parent::initialize($config);
 
         $this->setTable('warehouses');
-        $this->setDisplayField('id');
+        $this->setDisplayField('type');
         $this->setPrimaryKey('id');
 
         $this->hasMany('BranchWarehouses', [
