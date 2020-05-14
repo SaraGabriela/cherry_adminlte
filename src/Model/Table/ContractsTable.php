@@ -14,6 +14,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\ClientsTable&\Cake\ORM\Association\BelongsTo $Clients
  * @property \App\Model\Table\ProductionsTable&\Cake\ORM\Association\BelongsTo $Productions
  * @property \App\Model\Table\AlliancesTable&\Cake\ORM\Association\BelongsTo $Alliances
+ * @property \App\Model\Table\BranchesTable&\Cake\ORM\Association\BelongsTo $Branches
  * @property \App\Model\Table\ContractRecipesTable&\Cake\ORM\Association\HasMany $ContractRecipes
  *
  * @method \App\Model\Entity\Contract newEmptyEntity()
@@ -59,6 +60,9 @@ class ContractsTable extends Table
         $this->hasMany('ContractRecipes', [
             'foreignKey' => 'contract_id',
         ]);
+        $this->belongsTo('Branches', [
+            'foreignKey' => 'branch_id',
+        ]);
     }
 
     /**
@@ -99,11 +103,6 @@ class ContractsTable extends Table
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
-        $validator
-            ->scalar('ubication')
-            ->maxLength('ubication', 450)
-            ->requirePresence('ubication', 'create')
-            ->notEmptyString('ubication');
 
         return $validator;
     }
@@ -120,6 +119,7 @@ class ContractsTable extends Table
         $rules->add($rules->existsIn(['client_id'], 'Clients'));
         $rules->add($rules->existsIn(['production_id'], 'Productions'));
         $rules->add($rules->existsIn(['alliance_id'], 'Alliances'));
+        $rules->add($rules->existsIn(['branch_id'], 'Branches'));
 
         return $rules;
     }

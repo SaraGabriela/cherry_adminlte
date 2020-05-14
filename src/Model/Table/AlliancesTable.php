@@ -41,7 +41,7 @@ class AlliancesTable extends Table
         parent::initialize($config);
 
         $this->setTable('alliances');
-        $this->setDisplayField('id');
+        $this->setDisplayField('client');
         $this->setPrimaryKey('id');
 
         $this->hasMany('CakeSales', [

@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property string $person_in_charge
  *
  * @property \App\Model\Entity\BranchWarehouse[] $branch_warehouses
+ * @property \App\Model\Entity\Contract[] $contracts
  */
 class Branch extends Entity
 {
@@ -31,5 +32,6 @@ class Branch extends Entity
         'address' => true,
         'person_in_charge' => true,
         'branch_warehouses' => true,
+        'contracts' => true,
     ];
 }
