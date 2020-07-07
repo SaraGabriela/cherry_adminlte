@@ -9,21 +9,19 @@ use Cake\ORM\Entity;
  * Recipe Entity
  *
  * @property int $id
- * @property int $dimension_id
  * @property int $raw_id
  * @property int $raw_filling_id
  * @property int $decoration_id
- * @property int $cake_id
  * @property string|null $cooking_time
- * @property string $special_order
- * @property string $price
  * @property string|null $observations
+ * @property string $comercial_name
+ * @property string $photo
  *
- * @property \App\Model\Entity\Dimension $dimension
  * @property \App\Model\Entity\Raw $raw
  * @property \App\Model\Entity\RawFilling $raw_filling
  * @property \App\Model\Entity\Decoration $decoration
- * @property \App\Model\Entity\Cake $cake
+ * @property \App\Model\Entity\ContractRecipe[] $contract_recipes
+ * @property \App\Model\Entity\RecipeDimension[] $recipe_dimensions
  */
 class Recipe extends Entity
 {
@@ -37,19 +35,17 @@ class Recipe extends Entity
      * @var array
      */
     protected $_accessible = [
-        'dimension_id' => true,
         'raw_id' => true,
         'raw_filling_id' => true,
         'decoration_id' => true,
-        'cake_id' => true,
         'cooking_time' => true,
-        'special_order' => true,
-        'price' => true,
         'observations' => true,
-        'dimension' => true,
+        'comercial_name' => true,
+        'photo' => true,
         'raw' => true,
         'raw_filling' => true,
         'decoration' => true,
-        'cake' => true,
+        'contract_recipes' => true,
+        'recipe_dimensions' => true,
     ];
 }

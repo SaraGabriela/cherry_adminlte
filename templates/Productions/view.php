@@ -84,7 +84,7 @@
                         <tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Production Id') ?></th>
-                            <th><?= __('Recipe Id') ?></th>
+                            <th><?= __('Recipe Dimension Id') ?></th>
                             <th><?= __('Observations') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
@@ -92,7 +92,7 @@
                         <tr>
                             <td><?= h($productionRecipes->id) ?></td>
                             <td><?= h($productionRecipes->production_id) ?></td>
-                            <td><?= h($productionRecipes->recipe_id) ?></td>
+                            <td><?= h($productionRecipes->recipe_dimension_id) ?></td>
                             <td><?= h($productionRecipes->observations) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'ProductionRecipes', 'action' => 'view', $productionRecipes->id]) ?>

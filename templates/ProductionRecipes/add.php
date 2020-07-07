@@ -18,7 +18,7 @@
                 <legend><?= __('Add Production Recipe') ?></legend>
                 <?php
                     echo $this->Form->control('production_id', ['options' => $productions]);
-                    echo $this->Form->control('recipe_id', ['options' => $recipes]);
+                    echo $this->Form->control('recipe_dimension_id', ['options' => $recipeDimensions]);
                     echo $this->Form->control('observations');
                 ?>
             </fieldset>

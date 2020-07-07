@@ -13,7 +13,7 @@
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
                     <th><?= $this->Paginator->sort('production_id') ?></th>
-                    <th><?= $this->Paginator->sort('recipe_id') ?></th>
+                    <th><?= $this->Paginator->sort('recipe_dimension_id') ?></th>
                     <th><?= $this->Paginator->sort('observations') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
@@ -23,7 +23,7 @@
                 <tr>
                     <td><?= $this->Number->format($productionRecipe->id) ?></td>
                     <td><?= $productionRecipe->has('production') ? $this->Html->link($productionRecipe->production->id, ['controller' => 'Productions', 'action' => 'view', $productionRecipe->production->id]) : '' ?></td>
-                    <td><?= $productionRecipe->has('recipe') ? $this->Html->link($productionRecipe->recipe->id, ['controller' => 'Recipes', 'action' => 'view', $productionRecipe->recipe->id]) : '' ?></td>
+                    <td><?= $productionRecipe->has('recipe_dimension') ? $this->Html->link($productionRecipe->recipe_dimension->recipe_dimensions_id, ['controller' => 'RecipeDimensions', 'action' => 'view', $productionRecipe->recipe_dimension->recipe_dimensions_id]) : '' ?></td>
                     <td><?= h($productionRecipe->observations) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $productionRecipe->id]) ?>

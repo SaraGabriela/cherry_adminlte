@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $description
  * @property string $quantity_produced
- *int
+ *
  * @property \App\Model\Entity\PreparationProduct[] $preparation_products
  */
 class PreviousPreparation extends Entity
@@ -31,6 +31,5 @@ class PreviousPreparation extends Entity
         'description' => true,
         'quantity_produced' => true,
         'preparation_products' => true,
-        
     ];
 }

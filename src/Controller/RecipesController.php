@@ -20,7 +20,7 @@ class RecipesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Dimensions', 'Raws', 'RawFillings', 'Decorations', 'Cakes'],
+            'contain' => ['Raws', 'RawFillings', 'Decorations'],
         ];
         $recipes = $this->paginate($this->Recipes);
 
@@ -37,7 +37,7 @@ class RecipesController extends AppController
     public function view($id = null)
     {
         $recipe = $this->Recipes->get($id, [
-            'contain' => ['Dimensions', 'Raws', 'RawFillings', 'Decorations', 'Cakes'],
+            'contain' => ['Raws', 'RawFillings', 'Decorations', 'ContractRecipes', 'RecipeDimensions'],
         ]);
 
         $this->set('recipe', $recipe);
@@ -60,12 +60,10 @@ class RecipesController extends AppController
             }
             $this->Flash->error(__('The recipe could not be saved. Please, try again.'));
         }
-        $dimensions = $this->Recipes->Dimensions->find('list', ['limit' => 200]);
         $raws = $this->Recipes->Raws->find('list', ['limit' => 200]);
         $rawFillings = $this->Recipes->RawFillings->find('list', ['limit' => 200]);
         $decorations = $this->Recipes->Decorations->find('list', ['limit' => 200]);
-        $cakes = $this->Recipes->Cakes->find('list', ['limit' => 200]);
-        $this->set(compact('recipe', 'dimensions', 'raws', 'rawFillings', 'decorations', 'cakes'));
+        $this->set(compact('recipe', 'raws', 'rawFillings', 'decorations'));
     }
 
     /**
@@ -89,12 +87,10 @@ class RecipesController extends AppController
             }
             $this->Flash->error(__('The recipe could not be saved. Please, try again.'));
         }
-        $dimensions = $this->Recipes->Dimensions->find('list', ['limit' => 200]);
         $raws = $this->Recipes->Raws->find('list', ['limit' => 200]);
         $rawFillings = $this->Recipes->RawFillings->find('list', ['limit' => 200]);
         $decorations = $this->Recipes->Decorations->find('list', ['limit' => 200]);
-        $cakes = $this->Recipes->Cakes->find('list', ['limit' => 200]);
-        $this->set(compact('recipe', 'dimensions', 'raws', 'rawFillings', 'decorations', 'cakes'));
+        $this->set(compact('recipe', 'raws', 'rawFillings', 'decorations'));
     }
 
     /**

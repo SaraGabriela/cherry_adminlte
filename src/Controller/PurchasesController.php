@@ -20,7 +20,7 @@ class PurchasesController extends AppController
     public function index()
     {
         $this->paginate=[
-            'contain' => ['Suppliers','PurchaseProducts'=>['Products','Warehouses']],
+            'contain' => ['Suppliers','PurchaseProducts'=>['Products']],
         ];
         $purchase = $this->paginate($this->Purchases);
         $this->set('purchase', $purchase);
@@ -37,7 +37,7 @@ class PurchasesController extends AppController
     public function view($id = null)
     {
         $purchase = $this->Purchases->get($id, [
-            'contain' => ['Suppliers', 'PurchaseProducts'=>['Products','Warehouses']],
+            'contain' => ['Suppliers', 'PurchaseProducts'],
         ]);
 
         $this->set('purchase', $purchase);
@@ -52,16 +52,8 @@ class PurchasesController extends AppController
     public function add()
     {
         $purchase = $this->Purchases->newEmptyEntity();
-        $this->loadModel('PurchaseProducts');
         if ($this->request->is('post')) {
-            //$purchase = $this->Purchases->patchEntity($purchase, $this->request->getData());
-            $purchase = $this->Purchases->patchEntity($purchase, $this->request->getData(), [
-                'associated' => [
-                    'PurchaseProducts'
-                ]
-            ]);
-
-
+            $purchase = $this->Purchases->patchEntity($purchase, $this->request->getData());
             if ($this->Purchases->save($purchase)) {
                 $this->Flash->success(__('The {0} has been saved.', 'Purchase'));
 
@@ -70,10 +62,7 @@ class PurchasesController extends AppController
             $this->Flash->error(__('The {0} could not be saved. Please, try again.', 'Purchase'));
         }
         $suppliers = $this->Purchases->Suppliers->find('list', ['limit' => 200]);
-        $products = $this->PurchaseProducts->Products->find('list', ['limit' => 200]);
-        
-        $warehouses = $this->PurchaseProducts->Warehouses->find('list', ['limit' => 200]);
-        $this->set(compact('purchase', 'suppliers', 'products','warehouses'));
+        $this->set(compact('purchase', 'suppliers'));
     }
 
 
@@ -87,7 +76,7 @@ class PurchasesController extends AppController
     public function edit($id = null)
     {
         $purchase = $this->Purchases->get($id, [
-            'contain' => ['Suppliers', 'PurchaseProducts'=>['Products','Warehouses']],
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $purchase = $this->Purchases->patchEntity($purchase, $this->request->getData());

@@ -59,6 +59,9 @@ class PreviousPreparationsController extends AppController
                     'PreparationProducts'
                 ]
             ]);
+            // Use the following to avoid validation errors:
+            //unset($this->PreviousPreparations->PreparationProducts->validate['company_id']);
+            
             if ($this->PreviousPreparations->save($previousPreparation)) {
                 $this->Flash->success(__('The previous preparation has been saved.'));
 
@@ -69,38 +72,7 @@ class PreviousPreparationsController extends AppController
         
         $products = $this->PreparationProducts->Products->find('list', ['limit' => 200]);
         $this->set(compact('previousPreparation','products'));
-        /*
-        if ($this->request->is('post')) {
-            $this->request->getData();
-            $previousPreparation = $this->PreviousPreparations->patchEntity($previousPreparation, $this->request->getData());
-            
-            
-            if ($this->PreviousPreparations->save($previousPreparation)) {
-                $this->Flash->success(__('The previous preparation has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The previous preparation could not be saved. Please, try again.'));
-        }
-        $products = $this->PreparationProducts->Products->find('list', ['limit' => 200]);
-        $this->set(compact('previousPreparation','preparationProduct','products'));
-        */
     }
-
-
-    /*public function addHeaderDetail($header,$detail){
-        $this->loadModel('PreparationProducts');
-        $previousPreparation = $this->PreviousPreparations->newEmptyEntity();
-        $previousPreparation->name=$header->name;
-        $previousPreparation->quantity_produced=$header->quantity_produced;
-        $previousPreparation->description=$header->description;
-        foreach($detail):
-
-        endforeach;
-
-
-    }*/
-
     /**
      * Edit method
      *
@@ -113,8 +85,14 @@ class PreviousPreparationsController extends AppController
         $previousPreparation = $this->PreviousPreparations->get($id, [
             'contain' => [],
         ]);
+        $this->loadModel('PreparationProducts');
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $previousPreparation = $this->PreviousPreparations->patchEntity($previousPreparation, $this->request->getData());
+            //$previousPreparation = $this->PreviousPreparations->patchEntity($previousPreparation, $this->request->getData());
+            
+            $existRecord=array();
+            foreach ($this->request->data['PreparationProducts'] as $v){
+                if (isset($v['id']) and !empty($v['id'])) $existRecord[]=$v['id'];
+            }
             if ($this->PreviousPreparations->save($previousPreparation)) {
                 $this->Flash->success(__('The previous preparation has been saved.'));
 
@@ -122,7 +100,10 @@ class PreviousPreparationsController extends AppController
             }
             $this->Flash->error(__('The previous preparation could not be saved. Please, try again.'));
         }
-        $this->set(compact('previousPreparation'));
+        $products = $this->PreparationProducts->Products->find('list', ['limit' => 200]);
+        $preparationProduct=$this->PreviousPreparations->PreparationProducts->find('list', array('conditions'=>"PreparationProducts.previous_preparation_id IN ('$id')"));
+            
+        $this->set(compact('previousPreparation','products','preparationProduct'));
     }
 
     /**

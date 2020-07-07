@@ -29,8 +29,6 @@ class CakeSalesFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'cake_sales_ibfk_1' => ['type' => 'foreign', 'columns' => ['alliance_id'], 'references' => ['alliances', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'cake_sales_ibfk_2' => ['type' => 'foreign', 'columns' => ['cake_id'], 'references' => ['cakes', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -51,7 +49,7 @@ class CakeSalesFixture extends TestFixture
                 'cake_id' => 1,
                 'alliance_id' => 1,
                 'branch' => 'Lorem ipsum dolor sit amet',
-                'sale_date' => '2020-05-06',
+                'sale_date' => '2020-06-04',
                 'sale_price' => 1.5,
             ],
         ];

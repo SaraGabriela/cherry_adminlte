@@ -4,30 +4,77 @@
  * @var \App\Model\Entity\Decoration $decoration
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $decoration->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $decoration->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Decorations'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<section class="content">
+    <?php echo $this->Html->script('jquery-3.5.1.min.js');?>
+    <div class="row">
+    <?= $this->Form->create($decoration) ?>
+        <div class="col-md-4">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Añadir Crudo Relleno</h3>
+                    <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <?= $this->Html->link(__('Ver Tabla'), ['action' => 'index'], ['class' => 'btn btn-primary btn-xs']) ?>
+
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="box-body">
+                    
+                        <?php
+                            echo $this->Form->control('description');
+                            echo $this->Form->control('code');
+                        ?>
+
+                
+                </div>
+            </div>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="decorations form content">
-            <?= $this->Form->create($decoration) ?>
-            <fieldset>
-                <legend><?= __('Edit Decoration') ?></legend>
-                <?php
-                    echo $this->Form->control('description');
-                    echo $this->Form->control('code');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+        <div class="col-md-8">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Añadir Productos</h3>
+                    <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+
+
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="box-body">
+                    <table>
+
+                        <?php 
+                        $fipro=$decoration['decoration_products'];
+                        $fidim=$decoration['decoration_dimensions'];
+                        if ($fipro) :?>
+                            <?php foreach ($fidim as $j=>$b) :?>
+                                <?php  echo $this->Form->hidden('decoration_dimensions.'.$j.'.id', array('value' => $b['id'])); ?>   
+                                <td><?php echo $this->Form->control('decoration_dimensions.'.$j.'.dimension_id', ['options' => $dimensions]);?>
+                                <?php ;
+                                    foreach ($fipro as $i=>$v) :?>
+                                    <tr id="tr<?php echo $i;?>">
+                                        
+                                        <?php echo $this->Form->hidden('decoration_dimensions.'.$j.'.decoration_product_measures.'.$i.'.id', array('value' => $v['id']));?>
+                                        <td><?php echo $this->Form->control('decoration_dimensions.'.$j.'.decoration_product_measures.'.$i.'.decoration_product_id', ['options' => $pro, 'label'=>'Producto']);?>
+                                        <td><?php echo $this->Form->control('decoration_dimensions.'.$j.'.decoration_product_measures.'.$i.'.quantity',[ 'label'=>'Cantidad']);?>
+                                        <td><?php echo $this->Form->control('decoration_dimensions.'.$j.'.decoration_product_measures.'.$i.'.unit',[ 'label'=>'Unidad']);?>
+                                    
+                                    </td>
+                                    </tr>
+                                
+                                <?php endforeach;?> 
+                               
+                            <?php endforeach;?> 
+                        <?php endif; ?>
+                        
+                    </table>
+                </div>
+            </div>
         </div>
+        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->end() ?>
     </div>
-</div>
+
+</section>

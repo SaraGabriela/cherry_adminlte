@@ -11,11 +11,11 @@ use Cake\Validation\Validator;
 /**
  * Recipes Model
  *
- * @property \App\Model\Table\DimensionsTable&\Cake\ORM\Association\BelongsTo $Dimensions
  * @property \App\Model\Table\RawsTable&\Cake\ORM\Association\BelongsTo $Raws
  * @property \App\Model\Table\RawFillingsTable&\Cake\ORM\Association\BelongsTo $RawFillings
  * @property \App\Model\Table\DecorationsTable&\Cake\ORM\Association\BelongsTo $Decorations
- * @property \App\Model\Table\CakesTable&\Cake\ORM\Association\BelongsTo $Cakes
+ * @property \App\Model\Table\ContractRecipesTable&\Cake\ORM\Association\HasMany $ContractRecipes
+ * @property \App\Model\Table\RecipeDimensionsTable&\Cake\ORM\Association\HasMany $RecipeDimensions
  *
  * @method \App\Model\Entity\Recipe newEmptyEntity()
  * @method \App\Model\Entity\Recipe newEntity(array $data, array $options = [])
@@ -44,13 +44,9 @@ class RecipesTable extends Table
         parent::initialize($config);
 
         $this->setTable('recipes');
-        $this->setDisplayField('id');
+        $this->setDisplayField('comercial_name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Dimensions', [
-            'foreignKey' => 'dimension_id',
-            'joinType' => 'INNER',
-        ]);
         $this->belongsTo('Raws', [
             'foreignKey' => 'raw_id',
             'joinType' => 'INNER',
@@ -63,9 +59,11 @@ class RecipesTable extends Table
             'foreignKey' => 'decoration_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Cakes', [
-            'foreignKey' => 'cake_id',
-            'joinType' => 'INNER',
+        $this->hasMany('ContractRecipes', [
+            'foreignKey' => 'recipe_id',
+        ]);
+        $this->hasMany('RecipeDimensions', [
+            'foreignKey' => 'recipe_id',
         ]);
     }
 
@@ -87,20 +85,21 @@ class RecipesTable extends Table
             ->allowEmptyString('cooking_time');
 
         $validator
-            ->scalar('special_order')
-            ->maxLength('special_order', 5)
-            ->requirePresence('special_order', 'create')
-            ->notEmptyString('special_order');
-
-        $validator
-            ->decimal('price')
-            ->requirePresence('price', 'create')
-            ->notEmptyString('price');
-
-        $validator
             ->scalar('observations')
             ->maxLength('observations', 450)
             ->allowEmptyString('observations');
+
+        $validator
+            ->scalar('comercial_name')
+            ->maxLength('comercial_name', 150)
+            ->requirePresence('comercial_name', 'create')
+            ->notEmptyString('comercial_name');
+
+        $validator
+            ->scalar('photo')
+            ->maxLength('photo', 300)
+            ->requirePresence('photo', 'create')
+            ->notEmptyString('photo');
 
         return $validator;
     }
@@ -114,11 +113,9 @@ class RecipesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn(['dimension_id'], 'Dimensions'));
         $rules->add($rules->existsIn(['raw_id'], 'Raws'));
         $rules->add($rules->existsIn(['raw_filling_id'], 'RawFillings'));
         $rules->add($rules->existsIn(['decoration_id'], 'Decorations'));
-        $rules->add($rules->existsIn(['cake_id'], 'Cakes'));
 
         return $rules;
     }

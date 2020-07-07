@@ -14,7 +14,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\DecorationDimensionsTable&\Cake\ORM\Association\HasMany $DecorationDimensions
  * @property \App\Model\Table\EquivalenceDimensionsTable&\Cake\ORM\Association\HasMany $EquivalenceDimensions
  * @property \App\Model\Table\FillingDimensionsTable&\Cake\ORM\Association\HasMany $FillingDimensions
- * @property \App\Model\Table\RecipesTable&\Cake\ORM\Association\HasMany $Recipes
+ * @property \App\Model\Table\RecipeDimensionsTable&\Cake\ORM\Association\HasMany $RecipeDimensions
  *
  * @method \App\Model\Entity\Dimension newEmptyEntity()
  * @method \App\Model\Entity\Dimension newEntity(array $data, array $options = [])
@@ -43,7 +43,7 @@ class DimensionsTable extends Table
         parent::initialize($config);
 
         $this->setTable('dimensions');
-        $this->setDisplayField('id');
+        $this->setDisplayField('description');
         $this->setPrimaryKey('id');
 
         $this->hasMany('DecorationDimensions', [
@@ -55,7 +55,7 @@ class DimensionsTable extends Table
         $this->hasMany('FillingDimensions', [
             'foreignKey' => 'dimension_id',
         ]);
-        $this->hasMany('Recipes', [
+        $this->hasMany('RecipeDimensions', [
             'foreignKey' => 'dimension_id',
         ]);
     }

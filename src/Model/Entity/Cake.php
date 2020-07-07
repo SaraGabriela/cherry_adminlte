@@ -13,9 +13,7 @@ use Cake\ORM\Entity;
  * @property string $description
  * @property string|null $code
  *
- * @property \App\Model\Entity\CakeSale[] $cake_sales
  * @property \App\Model\Entity\FinalCake[] $final_cakes
- * @property \App\Model\Entity\Recipe[] $recipes
  */
 class Cake extends Entity
 {
@@ -32,8 +30,6 @@ class Cake extends Entity
         'name' => true,
         'description' => true,
         'code' => true,
-        'cake_sales' => true,
         'final_cakes' => true,
-        'recipes' => true,
     ];
 }

@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Cake $cake
  * @property \App\Model\Entity\ProductionRecipe $production_recipe
+ * @property \App\Model\Entity\TransferFinalCake[] $transfer_final_cake
  * @property \App\Model\Entity\Transformation[] $transformations
  */
 class FinalCake extends Entity
@@ -36,6 +37,7 @@ class FinalCake extends Entity
         'arrival_date' => true,
         'cake' => true,
         'production_recipe' => true,
+        'transfer_final_cake' => true,
         'transformations' => true,
     ];
 }

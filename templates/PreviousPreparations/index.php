@@ -31,9 +31,7 @@
         <div class="box-body table-responsive no-padding">
           <table class="table table-hover">
             <thead>
-              <tr>
-                  <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+              <tr>                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('description','Descripción') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('quantity_produced','Cantidad Producida') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
@@ -42,7 +40,7 @@
             <tbody>
             <?php foreach ($previousPreparations as $previousPreparation): ?>
                 <tr>
-                  <td><?= $this->Number->format($previousPreparation->id) ?></td>
+
                   <td><?= h($previousPreparation->name) ?></td>
                   <td><?= h($previousPreparation->description) ?></td>
                   <td><?= $this->Number->format($previousPreparation->quantity_produced) ?></td>

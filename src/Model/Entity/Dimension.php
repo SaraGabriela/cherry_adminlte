@@ -14,7 +14,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\DecorationDimension[] $decoration_dimensions
  * @property \App\Model\Entity\EquivalenceDimension[] $equivalence_dimensions
  * @property \App\Model\Entity\FillingDimension[] $filling_dimensions
- * @property \App\Model\Entity\Recipe[] $recipes
+ * @property \App\Model\Entity\RecipeDimension[] $recipe_dimensions
  */
 class Dimension extends Entity
 {
@@ -32,6 +32,6 @@ class Dimension extends Entity
         'decoration_dimensions' => true,
         'equivalence_dimensions' => true,
         'filling_dimensions' => true,
-        'recipes' => true,
+        'recipe_dimensions' => true,
     ];
 }

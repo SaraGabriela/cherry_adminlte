@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\BranchWarehouse $branch_warehouse
  * @property \App\Model\Entity\Product $product
+ * @property \App\Model\Entity\TransferWarehouseProduct[] $transfer_warehouse_products
  */
 class WarehouseProduct extends Entity
 {
@@ -39,5 +40,6 @@ class WarehouseProduct extends Entity
         'previous_stock' => true,
         'branch_warehouse' => true,
         'product' => true,
+        'transfer_warehouse_products' => true,
     ];
 }

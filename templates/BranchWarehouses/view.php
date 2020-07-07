@@ -1,80 +1,71 @@
-<section class="content-header">
-  <h1>
-    Almacén
-    <small><?php echo __('Ver'); ?></small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
-  </ol>
-</section>
-
-<!-- Main content -->
-<section class="content">
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\BranchWarehouse $branchWarehouse
+ */
+?>
 <div class="row">
-        <div class="col-md-3">
-          <div class="box box-solid">
-            <!-- /.box-body -->
-              <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">Detalle</h3>
-              </div>
-              <!-- /.box-header -->
-              <!-- form start -->
-              <form role="form">
-                <div class="box-body">
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Sucursal:</label>
-                    <dd class="form-control"><?= h($branchWarehouse->branch->name) ?></dd>
-
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Almacen</label>
-                       <dd class="form-control"><?= h($branchWarehouse->warehouse->type) ?></dd>
-                  </div>
+    <aside class="column">
+        <div class="side-nav">
+            <h4 class="heading"><?= __('Actions') ?></h4>
+            <?= $this->Html->link(__('Edit Branch Warehouse'), ['action' => 'edit', $branchWarehouse->id], ['class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Delete Branch Warehouse'), ['action' => 'delete', $branchWarehouse->id], ['confirm' => __('Are you sure you want to delete # {0}?', $branchWarehouse->id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('List Branch Warehouses'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <?= $this->Html->link(__('New Branch Warehouse'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+        </div>
+    </aside>
+    <div class="column-responsive column-80">
+        <div class="branchWarehouses view content">
+            <h3><?= h($branchWarehouse->id) ?></h3>
+            <table>
+                <tr>
+                    <th><?= __('Warehouse') ?></th>
+                    <td><?= $branchWarehouse->has('warehouse') ? $this->Html->link($branchWarehouse->warehouse->id, ['controller' => 'Warehouses', 'action' => 'view', $branchWarehouse->warehouse->id]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Branch') ?></th>
+                    <td><?= $branchWarehouse->has('branch') ? $this->Html->link($branchWarehouse->branch->name, ['controller' => 'Branches', 'action' => 'view', $branchWarehouse->branch->id]) : '' ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Id') ?></th>
+                    <td><?= $this->Number->format($branchWarehouse->id) ?></td>
+                </tr>
+            </table>
+            <div class="related">
+                <h4><?= __('Related Warehouse Products') ?></h4>
+                <?php if (!empty($branchWarehouse->warehouse_products)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Branch Warehouse Id') ?></th>
+                            <th><?= __('Current Stock') ?></th>
+                            <th><?= __('Unit') ?></th>
+                            <th><?= __('Date') ?></th>
+                            <th><?= __('Product Id') ?></th>
+                            <th><?= __('Previous Stock') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($branchWarehouse->warehouse_products as $warehouseProducts) : ?>
+                        <tr>
+                            <td><?= h($warehouseProducts->id) ?></td>
+                            <td><?= h($warehouseProducts->branch_warehouse_id) ?></td>
+                            <td><?= h($warehouseProducts->current_stock) ?></td>
+                            <td><?= h($warehouseProducts->unit) ?></td>
+                            <td><?= h($warehouseProducts->date) ?></td>
+                            <td><?= h($warehouseProducts->product_id) ?></td>
+                            <td><?= h($warehouseProducts->previous_stock) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'WarehouseProducts', 'action' => 'view', $warehouseProducts->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'WarehouseProducts', 'action' => 'edit', $warehouseProducts->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'WarehouseProducts', 'action' => 'delete', $warehouseProducts->id], ['confirm' => __('Are you sure you want to delete # {0}?', $warehouseProducts->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
                 </div>
-                <!-- /.box-body -->
-
-              </form>
+                <?php endif; ?>
             </div>
-          </div>
         </div>
-
-        <div class="col-md-9">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <i class="fa fa-share-alt"></i>
-          <h3 class="box-title"><?= __('Productos') ?></h3>   
-        </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <?php if (!empty($branchWarehouse->warehouse_products)): ?>
-          <table class="table table-hover">
-              <tr>
-                    <th scope="col"><?= __('Nombre') ?></th>
-                    <th scope="col"><?= __('Marca') ?></th>
-                    <th scope="col"><?= __('Stock') ?></th>
-                    <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
-              </tr>
-              <?php foreach ($branchWarehouse->warehouse_products as $warehouseProducts): ?>
-              <tr>
-
-                    <td><?= h($warehouseProducts->product->name) ?></td>
-                    <td><?= h($warehouseProducts->product->brand) ?></td>
-                    <td><?= h($warehouseProducts->current_stock) ?> <?= h($warehouseProducts->unit) ?> </td>
-
-
-                    <td class="actions text-right">
-                      <?= $this->Html->link(__('View'), ['controller' => 'Products', 'action' => 'view', $warehouseProducts->product->id], ['class'=>'btn btn-info btn-xs']) ?>
-                      <?= $this->Html->link(__('Edit'), ['controller' => 'Products', 'action' => 'edit', $warehouseProducts->product->id], ['class'=>'btn btn-warning btn-xs']) ?>
-                      <?= $this->Form->postLink(  _('Delete'), ['controller' => 'Products', 'action' => 'delete', $warehouseProducts->product->id], ['confirm' => __('Are you sure you want to delete # {0}?', $warehouseProducts->product->id), 'class'=>'btn btn-danger btn-xs']) ?>
-                  </td>
-              </tr>
-              <?php endforeach; ?>
-          </table>
-          <?php endif; ?>
-        </div>
-      </div>
     </div>
-
-    
-</section>
+</div>

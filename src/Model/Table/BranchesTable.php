@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * Branches Model
  *
  * @property \App\Model\Table\BranchWarehousesTable&\Cake\ORM\Association\HasMany $BranchWarehouses
- * @property \App\Model\Table\ContractsTable&\Cake\ORM\Association\HasMany $Contracts
  *
  * @method \App\Model\Entity\Branch newEmptyEntity()
  * @method \App\Model\Entity\Branch newEntity(array $data, array $options = [])
@@ -47,7 +46,7 @@ class BranchesTable extends Table
         $this->hasMany('BranchWarehouses', [
             'foreignKey' => 'branch_id',
         ]);
-        $this->hasMany('Contracts', [
+        $this->hasMany('Stocks', [
             'foreignKey' => 'branch_id',
         ]);
     }

@@ -33,7 +33,7 @@
             <thead>
               <tr>
                   <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('name') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('image') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('state') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>

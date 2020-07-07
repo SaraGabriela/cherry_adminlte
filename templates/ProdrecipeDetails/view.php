@@ -23,40 +23,28 @@
                     <td><?= $prodrecipeDetail->has('production_recipe') ? $this->Html->link($prodrecipeDetail->production_recipe->id, ['controller' => 'ProductionRecipes', 'action' => 'view', $prodrecipeDetail->production_recipe->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Branch Warehouse') ?></th>
-                    <td><?= $prodrecipeDetail->has('branch_warehouse') ? $this->Html->link($prodrecipeDetail->branch_warehouse->id, ['controller' => 'BranchWarehouses', 'action' => 'view', $prodrecipeDetail->branch_warehouse->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Current Ubication') ?></th>
-                    <td><?= h($prodrecipeDetail->current_ubication) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Branch') ?></th>
-                    <td><?= h($prodrecipeDetail->branch) ?></td>
+                    <th><?= __('Priority') ?></th>
+                    <td><?= h($prodrecipeDetail->priority) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Observations') ?></th>
                     <td><?= h($prodrecipeDetail->observations) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Phase') ?></th>
+                    <td><?= h($prodrecipeDetail->phase) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($prodrecipeDetail->id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Cake Phase') ?></th>
-                    <td><?= $this->Number->format($prodrecipeDetail->cake_phase) ?></td>
+                    <th><?= __('Branch') ?></th>
+                    <td><?= $this->Number->format($prodrecipeDetail->branch) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Priority') ?></th>
-                    <td><?= $this->Number->format($prodrecipeDetail->priority) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Date Phase Change') ?></th>
-                    <td><?= h($prodrecipeDetail->date_phase_change) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Special Order') ?></th>
-                    <td><?= $prodrecipeDetail->special_order ? __('Yes') : __('No'); ?></td>
+                    <th><?= __('Quantity') ?></th>
+                    <td><?= $this->Number->format($prodrecipeDetail->quantity) ?></td>
                 </tr>
             </table>
             <div class="related">

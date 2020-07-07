@@ -12,6 +12,12 @@ use Cake\Validation\Validator;
  * Products Model
  *
  * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
+ * @property \App\Model\Table\DecorationProductsTable&\Cake\ORM\Association\HasMany $DecorationProducts
+ * @property \App\Model\Table\FillingProductsTable&\Cake\ORM\Association\HasMany $FillingProducts
+ * @property \App\Model\Table\PreparationProductsTable&\Cake\ORM\Association\HasMany $PreparationProducts
+ * @property \App\Model\Table\PurchaseProductsTable&\Cake\ORM\Association\HasMany $PurchaseProducts
+ * @property \App\Model\Table\RawProductsTable&\Cake\ORM\Association\HasMany $RawProducts
+ * @property \App\Model\Table\WarehouseProductsTable&\Cake\ORM\Association\HasMany $WarehouseProducts
  *
  * @method \App\Model\Entity\Product newEmptyEntity()
  * @method \App\Model\Entity\Product newEntity(array $data, array $options = [])
@@ -47,6 +53,24 @@ class ProductsTable extends Table
             'foreignKey' => 'category_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('DecorationProducts', [
+            'foreignKey' => 'product_id',
+        ]);
+        $this->hasMany('FillingProducts', [
+            'foreignKey' => 'product_id',
+        ]);
+        $this->hasMany('PreparationProducts', [
+            'foreignKey' => 'product_id',
+        ]);
+        $this->hasMany('PurchaseProducts', [
+            'foreignKey' => 'product_id',
+        ]);
+        $this->hasMany('RawProducts', [
+            'foreignKey' => 'product_id',
+        ]);
+        $this->hasMany('WarehouseProducts', [
+            'foreignKey' => 'product_id',
+        ]);
     }
 
     /**
@@ -72,6 +96,10 @@ class ProductsTable extends Table
             ->requirePresence('price', 'create')
             ->notEmptyString('price');
 
+        $validator
+            ->scalar('image')
+            ->maxLength('image', 255)
+            ->allowEmptyFile('image');
 
         $validator
             ->scalar('presentation')
@@ -84,19 +112,6 @@ class ProductsTable extends Table
             ->maxLength('brand', 255)
             ->requirePresence('brand', 'create')
             ->notEmptyString('brand');
-
-        $validator
-            ->allowEmptyFile('image')
-            ->add( 'image', [
-            'mimeType' => [
-                'rule' => [ 'mimeType', [ 'image/jpg', 'image/png', 'image/jpeg' ] ],
-                'message' => 'Please upload only jpg and png.',
-            ],
-            'fileSize' => [
-                'rule' => [ 'fileSize', '<=', '1MB' ],
-                'message' => 'Image file size must be less than 1MB.',
-            ],
-        ] );
 
         return $validator;
     }

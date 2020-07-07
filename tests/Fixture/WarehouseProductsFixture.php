@@ -52,7 +52,7 @@ class WarehouseProductsFixture extends TestFixture
                 'branch_warehouse_id' => 1,
                 'current_stock' => 1,
                 'unit' => 'Lorem ipsum dolor sit amet',
-                'date' => '2020-05-04',
+                'date' => '2020-06-14',
                 'product_id' => 1,
                 'previous_stock' => 1,
             ],

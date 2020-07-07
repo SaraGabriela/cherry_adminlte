@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * ProdrecipeDetails Model
  *
  * @property \App\Model\Table\ProductionRecipesTable&\Cake\ORM\Association\BelongsTo $ProductionRecipes
- * @property \App\Model\Table\BranchWarehousesTable&\Cake\ORM\Association\BelongsTo $BranchWarehouses
+ * @property \App\Model\Table\BranchesTable&\Cake\ORM\Association\BelongsTo $Branches
  * @property \App\Model\Table\TransformationsTable&\Cake\ORM\Association\HasMany $Transformations
  *
  * @method \App\Model\Entity\ProdrecipeDetail newEmptyEntity()
@@ -49,8 +49,8 @@ class ProdrecipeDetailsTable extends Table
             'foreignKey' => 'production_recipe_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('BranchWarehouses', [
-            'foreignKey' => 'branch_warehouse_id',
+        $this->belongsTo('Branches', [
+            'foreignKey' => 'branch',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('Transformations', [
@@ -71,28 +71,12 @@ class ProdrecipeDetailsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('cake_phase')
-            ->requirePresence('cake_phase', 'create')
-            ->notEmptyString('cake_phase');
-
-        $validator
-            ->scalar('current_ubication')
-            ->maxLength('current_ubication', 250)
-            ->requirePresence('current_ubication', 'create')
-            ->notEmptyString('current_ubication');
-
-        $validator
-            ->boolean('special_order')
-            ->notEmptyString('special_order');
-
-        $validator
-            ->integer('priority')
+            ->scalar('priority')
             ->requirePresence('priority', 'create')
             ->notEmptyString('priority');
 
         $validator
-            ->scalar('branch')
-            ->maxLength('branch', 250)
+            ->integer('branch')
             ->requirePresence('branch', 'create')
             ->notEmptyString('branch');
 
@@ -103,9 +87,15 @@ class ProdrecipeDetailsTable extends Table
             ->notEmptyString('observations');
 
         $validator
-            ->date('date_phase_change')
-            ->requirePresence('date_phase_change', 'create')
-            ->notEmptyDate('date_phase_change');
+            ->scalar('phase')
+            ->maxLength('phase', 50)
+            ->requirePresence('phase', 'create')
+            ->notEmptyString('phase');
+
+        $validator
+            ->integer('quantity')
+            ->requirePresence('quantity', 'create')
+            ->notEmptyString('quantity');
 
         return $validator;
     }
@@ -120,8 +110,7 @@ class ProdrecipeDetailsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['production_recipe_id'], 'ProductionRecipes'));
-        $rules->add($rules->existsIn(['branch_warehouse_id'], 'BranchWarehouses'));
-
+        $rules->add($rules->existsIn(['branch'], 'Branches'));
         return $rules;
     }
 }

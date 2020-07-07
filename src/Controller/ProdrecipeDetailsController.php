@@ -20,7 +20,7 @@ class ProdrecipeDetailsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['ProductionRecipes', 'BranchWarehouses'],
+            'contain' => ['ProductionRecipes'],
         ];
         $prodrecipeDetails = $this->paginate($this->ProdrecipeDetails);
 
@@ -37,7 +37,7 @@ class ProdrecipeDetailsController extends AppController
     public function view($id = null)
     {
         $prodrecipeDetail = $this->ProdrecipeDetails->get($id, [
-            'contain' => ['ProductionRecipes', 'BranchWarehouses', 'Transformations'],
+            'contain' => ['ProductionRecipes', 'Transformations'],
         ]);
 
         $this->set('prodrecipeDetail', $prodrecipeDetail);
@@ -61,8 +61,7 @@ class ProdrecipeDetailsController extends AppController
             $this->Flash->error(__('The prodrecipe detail could not be saved. Please, try again.'));
         }
         $productionRecipes = $this->ProdrecipeDetails->ProductionRecipes->find('list', ['limit' => 200]);
-        $branchWarehouses = $this->ProdrecipeDetails->BranchWarehouses->find('list', ['limit' => 200]);
-        $this->set(compact('prodrecipeDetail', 'productionRecipes', 'branchWarehouses'));
+        $this->set(compact('prodrecipeDetail', 'productionRecipes'));
     }
 
     /**
@@ -87,8 +86,7 @@ class ProdrecipeDetailsController extends AppController
             $this->Flash->error(__('The prodrecipe detail could not be saved. Please, try again.'));
         }
         $productionRecipes = $this->ProdrecipeDetails->ProductionRecipes->find('list', ['limit' => 200]);
-        $branchWarehouses = $this->ProdrecipeDetails->BranchWarehouses->find('list', ['limit' => 200]);
-        $this->set(compact('prodrecipeDetail', 'productionRecipes', 'branchWarehouses'));
+        $this->set(compact('prodrecipeDetail', 'productionRecipes'));
     }
 
     /**

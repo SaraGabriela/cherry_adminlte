@@ -1,7 +1,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Productos
+    Products
+
     <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
 </section>
@@ -31,20 +32,26 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                  <th scope="col"><?= $this->Paginator->sort('image','Imagen') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('brand','Marca') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('category_id','Categoria') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('category_id') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('price') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('image') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('presentation') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('brand') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($products as $product): ?>
                 <tr>
-                  <td><?= h($product->image) ?></td>
+                  <td><?= $this->Number->format($product->id) ?></td>
                   <td><?= h($product->name) ?></td>
+                  <td><?= $this->Number->format($product->category_id) ?></td>
+                  <td><?= $this->Number->format($product->price) ?></td>
+                  <td><?= h($product->image) ?></td>
+                  <td><?= h($product->presentation) ?></td>
                   <td><?= h($product->brand) ?></td>
-                  <td><?= h($product->category->name) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $product->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $product->id], ['class'=>'btn btn-warning btn-xs']) ?>

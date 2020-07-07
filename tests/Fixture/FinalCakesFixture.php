@@ -28,8 +28,6 @@ class FinalCakesFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'final_cakes_ibfk_1' => ['type' => 'foreign', 'columns' => ['cake_id'], 'references' => ['cakes', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'final_cakes_ibfk_2' => ['type' => 'foreign', 'columns' => ['production_recipe_id'], 'references' => ['production_recipes', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -50,7 +48,7 @@ class FinalCakesFixture extends TestFixture
                 'cake_id' => 1,
                 'production_recipe_id' => 1,
                 'price' => 1.5,
-                'arrival_date' => '2020-05-06',
+                'arrival_date' => '2020-06-14',
             ],
         ];
         parent::init();

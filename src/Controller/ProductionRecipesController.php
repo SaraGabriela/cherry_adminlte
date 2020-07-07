@@ -20,7 +20,7 @@ class ProductionRecipesController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Productions', 'Recipes'],
+            'contain' => ['Productions', 'RecipeDimensions'],
         ];
         $productionRecipes = $this->paginate($this->ProductionRecipes);
 
@@ -37,7 +37,7 @@ class ProductionRecipesController extends AppController
     public function view($id = null)
     {
         $productionRecipe = $this->ProductionRecipes->get($id, [
-            'contain' => ['Productions', 'Recipes', 'FinalCakes', 'ProdrecipeDetails'],
+            'contain' => ['Productions', 'RecipeDimensions', 'FinalCakes', 'ProdrecipeDetails'],
         ]);
 
         $this->set('productionRecipe', $productionRecipe);
@@ -61,8 +61,8 @@ class ProductionRecipesController extends AppController
             $this->Flash->error(__('The production recipe could not be saved. Please, try again.'));
         }
         $productions = $this->ProductionRecipes->Productions->find('list', ['limit' => 200]);
-        $recipes = $this->ProductionRecipes->Recipes->find('list', ['limit' => 200]);
-        $this->set(compact('productionRecipe', 'productions', 'recipes'));
+        $recipeDimensions = $this->ProductionRecipes->RecipeDimensions->find('list', ['limit' => 200]);
+        $this->set(compact('productionRecipe', 'productions', 'recipeDimensions'));
     }
 
     /**
@@ -87,8 +87,8 @@ class ProductionRecipesController extends AppController
             $this->Flash->error(__('The production recipe could not be saved. Please, try again.'));
         }
         $productions = $this->ProductionRecipes->Productions->find('list', ['limit' => 200]);
-        $recipes = $this->ProductionRecipes->Recipes->find('list', ['limit' => 200]);
-        $this->set(compact('productionRecipe', 'productions', 'recipes'));
+        $recipeDimensions = $this->ProductionRecipes->RecipeDimensions->find('list', ['limit' => 200]);
+        $this->set(compact('productionRecipe', 'productions', 'recipeDimensions'));
     }
 
     /**

@@ -30,7 +30,7 @@ class TransformationsFixture extends TestFixture
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'transformations_ibfk_1' => ['type' => 'foreign', 'columns' => ['final_cake_id'], 'references' => ['final_cakes', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'transformations_ibfk_1' => ['type' => 'foreign', 'columns' => ['final_cake_id'], 'references' => ['recipe_dimensions', 'recipe_dimensions_id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
             'transformations_ibfk_2' => ['type' => 'foreign', 'columns' => ['prodrecipe_detail_id'], 'references' => ['prodrecipe_details', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
@@ -52,7 +52,7 @@ class TransformationsFixture extends TestFixture
                 'final_cake_id' => 1,
                 'prodrecipe_detail_id' => 1,
                 'recipe' => 1,
-                'date' => '2020-05-06',
+                'date' => '2020-06-14',
                 'detail' => 'Lorem ipsum dolor sit amet',
                 'phase' => 1,
             ],

@@ -51,29 +51,10 @@ class ProductsController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
-    {   
-
+    {
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
-            
-            if(!$product->getErrors){
-                $image = $this->request->getData('image_file');
-
-                $name  = $image->getClientFilename();
-
-                if( !is_dir(WWW_ROOT.'img'.DS.'product-img') )
-                mkdir(WWW_ROOT.'img'.DS.'product-img',0775);
-                
-                $targetPath = WWW_ROOT.'img'.DS.'product-img'.DS.$name;
-
-                if($name)
-                $image->moveTo($targetPath);
-                
-                $product->image = 'product-img/'.$name;
-            }
-
-
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The {0} has been saved.', 'Product'));
 

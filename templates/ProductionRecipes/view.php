@@ -23,8 +23,8 @@
                     <td><?= $productionRecipe->has('production') ? $this->Html->link($productionRecipe->production->id, ['controller' => 'Productions', 'action' => 'view', $productionRecipe->production->id]) : '' ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Recipe') ?></th>
-                    <td><?= $productionRecipe->has('recipe') ? $this->Html->link($productionRecipe->recipe->id, ['controller' => 'Recipes', 'action' => 'view', $productionRecipe->recipe->id]) : '' ?></td>
+                    <th><?= __('Recipe Dimension') ?></th>
+                    <td><?= $productionRecipe->has('recipe_dimension') ? $this->Html->link($productionRecipe->recipe_dimension->recipe_dimensions_id, ['controller' => 'RecipeDimensions', 'action' => 'view', $productionRecipe->recipe_dimension->recipe_dimensions_id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Observations') ?></th>
@@ -74,28 +74,20 @@
                         <tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Production Recipe Id') ?></th>
-                            <th><?= __('Branch Warehouse Id') ?></th>
-                            <th><?= __('Cake Phase') ?></th>
-                            <th><?= __('Current Ubication') ?></th>
-                            <th><?= __('Special Order') ?></th>
                             <th><?= __('Priority') ?></th>
                             <th><?= __('Branch') ?></th>
                             <th><?= __('Observations') ?></th>
-                            <th><?= __('Date Phase Change') ?></th>
+                            <th><?= __('Phase') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                         <?php foreach ($productionRecipe->prodrecipe_details as $prodrecipeDetails) : ?>
                         <tr>
                             <td><?= h($prodrecipeDetails->id) ?></td>
                             <td><?= h($prodrecipeDetails->production_recipe_id) ?></td>
-                            <td><?= h($prodrecipeDetails->branch_warehouse_id) ?></td>
-                            <td><?= h($prodrecipeDetails->cake_phase) ?></td>
-                            <td><?= h($prodrecipeDetails->current_ubication) ?></td>
-                            <td><?= h($prodrecipeDetails->special_order) ?></td>
                             <td><?= h($prodrecipeDetails->priority) ?></td>
                             <td><?= h($prodrecipeDetails->branch) ?></td>
                             <td><?= h($prodrecipeDetails->observations) ?></td>
-                            <td><?= h($prodrecipeDetails->date_phase_change) ?></td>
+                            <td><?= h($prodrecipeDetails->phase) ?></td>
                             <td class="actions">
                                 <?= $this->Html->link(__('View'), ['controller' => 'ProdrecipeDetails', 'action' => 'view', $prodrecipeDetails->id]) ?>
                                 <?= $this->Html->link(__('Edit'), ['controller' => 'ProdrecipeDetails', 'action' => 'edit', $prodrecipeDetails->id]) ?>

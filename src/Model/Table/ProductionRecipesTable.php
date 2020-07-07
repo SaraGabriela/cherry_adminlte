@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * ProductionRecipes Model
  *
  * @property \App\Model\Table\ProductionsTable&\Cake\ORM\Association\BelongsTo $Productions
- * @property \App\Model\Table\RecipesTable&\Cake\ORM\Association\BelongsTo $Recipes
+ * @property \App\Model\Table\RecipeDimensionsTable&\Cake\ORM\Association\BelongsTo $RecipeDimensions
  * @property \App\Model\Table\FinalCakesTable&\Cake\ORM\Association\HasMany $FinalCakes
  * @property \App\Model\Table\ProdrecipeDetailsTable&\Cake\ORM\Association\HasMany $ProdrecipeDetails
  *
@@ -50,8 +50,8 @@ class ProductionRecipesTable extends Table
             'foreignKey' => 'production_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('Recipes', [
-            'foreignKey' => 'recipe_id',
+        $this->belongsTo('RecipeDimensions', [
+            'foreignKey' => 'recipe_dimension_id',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('FinalCakes', [
@@ -74,11 +74,6 @@ class ProductionRecipesTable extends Table
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
 
-        $validator
-            ->scalar('observations')
-            ->maxLength('observations', 650)
-            ->allowEmptyString('observations');
-
         return $validator;
     }
 
@@ -92,7 +87,7 @@ class ProductionRecipesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['production_id'], 'Productions'));
-        $rules->add($rules->existsIn(['recipe_id'], 'Recipes'));
+        $rules->add($rules->existsIn(['recipe_dimension_id'], 'RecipeDimensions'));
 
         return $rules;
     }

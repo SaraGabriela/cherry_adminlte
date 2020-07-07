@@ -10,11 +10,10 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $production_id
- * @property int $recipe_id
- * @property string|null $observations
+ * @property int $recipe_dimension_id
  *
  * @property \App\Model\Entity\Production $production
- * @property \App\Model\Entity\Recipe $recipe
+ * @property \App\Model\Entity\RecipeDimension $recipe_dimension
  * @property \App\Model\Entity\FinalCake[] $final_cakes
  * @property \App\Model\Entity\ProdrecipeDetail[] $prodrecipe_details
  */
@@ -31,10 +30,9 @@ class ProductionRecipe extends Entity
      */
     protected $_accessible = [
         'production_id' => true,
-        'recipe_id' => true,
-        'observations' => true,
+        'recipe_dimension_id' => true,
         'production' => true,
-        'recipe' => true,
+        'recipe_dimension' => true,
         'final_cakes' => true,
         'prodrecipe_details' => true,
     ];

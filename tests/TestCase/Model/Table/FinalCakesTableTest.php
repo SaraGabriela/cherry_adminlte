@@ -28,6 +28,7 @@ class FinalCakesTableTest extends TestCase
         'app.FinalCakes',
         'app.Cakes',
         'app.ProductionRecipes',
+        'app.TransferFinalCake',
         'app.Transformations',
     ];
 

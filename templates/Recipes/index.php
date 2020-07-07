@@ -12,15 +12,13 @@
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('dimension_id') ?></th>
                     <th><?= $this->Paginator->sort('raw_id') ?></th>
                     <th><?= $this->Paginator->sort('raw_filling_id') ?></th>
                     <th><?= $this->Paginator->sort('decoration_id') ?></th>
-                    <th><?= $this->Paginator->sort('cake_id') ?></th>
                     <th><?= $this->Paginator->sort('cooking_time') ?></th>
-                    <th><?= $this->Paginator->sort('special_order') ?></th>
-                    <th><?= $this->Paginator->sort('price') ?></th>
                     <th><?= $this->Paginator->sort('observations') ?></th>
+                    <th><?= $this->Paginator->sort('comercial_name') ?></th>
+                    <th><?= $this->Paginator->sort('photo') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -28,15 +26,13 @@
                 <?php foreach ($recipes as $recipe): ?>
                 <tr>
                     <td><?= $this->Number->format($recipe->id) ?></td>
-                    <td><?= $recipe->has('dimension') ? $this->Html->link($recipe->dimension->id, ['controller' => 'Dimensions', 'action' => 'view', $recipe->dimension->id]) : '' ?></td>
                     <td><?= $recipe->has('raw') ? $this->Html->link($recipe->raw->name, ['controller' => 'Raws', 'action' => 'view', $recipe->raw->id]) : '' ?></td>
                     <td><?= $recipe->has('raw_filling') ? $this->Html->link($recipe->raw_filling->name, ['controller' => 'RawFillings', 'action' => 'view', $recipe->raw_filling->id]) : '' ?></td>
                     <td><?= $recipe->has('decoration') ? $this->Html->link($recipe->decoration->id, ['controller' => 'Decorations', 'action' => 'view', $recipe->decoration->id]) : '' ?></td>
-                    <td><?= $this->Number->format($recipe->cake_id) ?></td>
                     <td><?= h($recipe->cooking_time) ?></td>
-                    <td><?= h($recipe->special_order) ?></td>
-                    <td><?= $this->Number->format($recipe->price) ?></td>
                     <td><?= h($recipe->observations) ?></td>
+                    <td><?= h($recipe->comercial_name) ?></td>
+                    <td><?= h($recipe->photo) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $recipe->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $recipe->id]) ?>

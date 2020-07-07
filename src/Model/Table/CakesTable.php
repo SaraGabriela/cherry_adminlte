@@ -11,9 +11,7 @@ use Cake\Validation\Validator;
 /**
  * Cakes Model
  *
- * @property \App\Model\Table\CakeSalesTable&\Cake\ORM\Association\HasMany $CakeSales
  * @property \App\Model\Table\FinalCakesTable&\Cake\ORM\Association\HasMany $FinalCakes
- * @property \App\Model\Table\RecipesTable&\Cake\ORM\Association\HasMany $Recipes
  *
  * @method \App\Model\Entity\Cake newEmptyEntity()
  * @method \App\Model\Entity\Cake newEntity(array $data, array $options = [])
@@ -45,13 +43,7 @@ class CakesTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('CakeSales', [
-            'foreignKey' => 'cake_id',
-        ]);
         $this->hasMany('FinalCakes', [
-            'foreignKey' => 'cake_id',
-        ]);
-        $this->hasMany('Recipes', [
             'foreignKey' => 'cake_id',
         ]);
     }

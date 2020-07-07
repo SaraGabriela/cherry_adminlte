@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\CakesTable&\Cake\ORM\Association\BelongsTo $Cakes
  * @property \App\Model\Table\ProductionRecipesTable&\Cake\ORM\Association\BelongsTo $ProductionRecipes
+ * @property \App\Model\Table\TransferFinalCakeTable&\Cake\ORM\Association\HasMany $TransferFinalCake
  * @property \App\Model\Table\TransformationsTable&\Cake\ORM\Association\HasMany $Transformations
  *
  * @method \App\Model\Entity\FinalCake newEmptyEntity()
@@ -52,6 +53,9 @@ class FinalCakesTable extends Table
         $this->belongsTo('ProductionRecipes', [
             'foreignKey' => 'production_recipe_id',
             'joinType' => 'INNER',
+        ]);
+        $this->hasMany('TransferFinalCake', [
+            'foreignKey' => 'final_cake_id',
         ]);
         $this->hasMany('Transformations', [
             'foreignKey' => 'final_cake_id',

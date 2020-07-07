@@ -26,22 +26,17 @@
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <?php echo $this->Form->create($product, ['role' => 'form'],['type' => 'file']); ?>
+          <?php echo $this->Form->create($product, ['role' => 'form']); ?>
             <div class="box-body">
               <?php
-              
                 echo $this->Form->control('name');
                 echo $this->Form->control('category_id', ['options' => $categories]);
                 echo $this->Form->control('price');
-                echo $this->Form->control('image_file',['type'=>'file']);
+                echo $this->Form->control('image');
                 echo $this->Form->control('presentation');
                 echo $this->Form->control('brand');
               ?>
-          
             </div>
-
-
-
             <!-- /.box-body -->
 
           <?php echo $this->Form->submit(__('Submit')); ?>

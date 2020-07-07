@@ -9,8 +9,8 @@ use Cake\ORM\Entity;
  * RawFilling Entity
  *
  * @property int $id
- * @property int $name
- * @property int $code
+ * @property string $name
+ * @property string $code
  *
  * @property \App\Model\Entity\FillingDimension[] $filling_dimensions
  * @property \App\Model\Entity\FillingProduct[] $filling_products

@@ -28,6 +28,7 @@ class WarehouseProductsTableTest extends TestCase
         'app.WarehouseProducts',
         'app.BranchWarehouses',
         'app.Products',
+        'app.TransferWarehouseProducts',
     ];
 
     /**

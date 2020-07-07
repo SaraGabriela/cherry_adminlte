@@ -13,6 +13,8 @@ use Cake\ORM\Entity;
  * @property string $description
  * @property string|null $image
  * @property bool $state
+ *
+ * @property \App\Model\Entity\Product[] $products
  */
 class Category extends Entity
 {
@@ -30,5 +32,6 @@ class Category extends Entity
         'description' => true,
         'image' => true,
         'state' => true,
+        'products' => true,
     ];
 }

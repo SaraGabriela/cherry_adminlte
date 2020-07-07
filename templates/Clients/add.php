@@ -4,51 +4,29 @@
  * @var \App\Model\Entity\Client $client
  */
 ?>
-<section class="content-header">
-    <h1>
-      Cliente
-      <small><?php echo __('Crear'); ?></small>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
-    </ol>
-  </section>
-
-  <!-- Main content -->
-  <section class="content">
-    <div class="row">
-      <div class="col-md-6">
-        <!-- general form elements -->
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"><?php echo __('Form'); ?></h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-          <?= $this->Form->create($client) ?>
-            <div class="box-body">
-              <?php
-                                   echo $this->Form->control('name');
-                                   echo $this->Form->control('lastname');
-                                   echo $this->Form->control('email');
-                                   echo $this->Form->control('phone');
-                                   echo $this->Form->control('user');
-                                   echo $this->Form->control('password');
-              ?>
-            </div>
-            <!-- /.box-body -->
-
-          <?php echo $this->Form->submit(__('Submit')); ?>
-
-          <?php echo $this->Form->end(); ?>
+<div class="row">
+    <aside class="column">
+        <div class="side-nav">
+            <h4 class="heading"><?= __('Actions') ?></h4>
+            <?= $this->Html->link(__('List Clients'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
-        
-        <!-- /.box -->
-      </div>
-  </div>
-  <!-- /.row -->
-
-
-  
-</section>
-
+    </aside>
+    <div class="column-responsive column-80">
+        <div class="clients form content">
+            <?= $this->Form->create($client) ?>
+            <fieldset>
+                <legend><?= __('Add Client') ?></legend>
+                <?php
+                    echo $this->Form->control('name');
+                    echo $this->Form->control('lastname');
+                    echo $this->Form->control('email');
+                    echo $this->Form->control('phone');
+                    echo $this->Form->control('user');
+                    echo $this->Form->control('password');
+                ?>
+            </fieldset>
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,6 @@ use Cake\ORM\Entity;
  * @property string $ticket_value
  * @property int $ticket_quantity
  *
- * @property \App\Model\Entity\CakeSale[] $cake_sales
  * @property \App\Model\Entity\Contract[] $contracts
  */
 class Alliance extends Entity
@@ -33,7 +32,6 @@ class Alliance extends Entity
         'date' => true,
         'ticket_value' => true,
         'ticket_quantity' => true,
-        'cake_sales' => true,
         'contracts' => true,
     ];
 }

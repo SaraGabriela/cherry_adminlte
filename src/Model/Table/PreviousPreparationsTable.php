@@ -40,7 +40,7 @@ class PreviousPreparationsTable extends Table
         parent::initialize($config);
 
         $this->setTable('previous_preparations');
-        $this->setDisplayField('name');//esta parte es la que se muestra al insertar
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->hasMany('PreparationProducts', [
@@ -61,16 +61,16 @@ class PreviousPreparationsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('description')
-            ->maxLength('description', 150)
-            ->requirePresence('description', 'create')
-            ->notEmptyString('description');
-
-        $validator
             ->scalar('name')
             ->maxLength('name', 100)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
+
+        $validator
+            ->scalar('description')
+            ->maxLength('description', 150)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
 
         $validator
             ->decimal('quantity_produced')

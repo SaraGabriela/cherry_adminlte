@@ -17,6 +17,12 @@ use Cake\ORM\Entity;
  * @property string $brand
  *
  * @property \App\Model\Entity\Category $category
+ * @property \App\Model\Entity\DecorationProduct[] $decoration_products
+ * @property \App\Model\Entity\FillingProduct[] $filling_products
+ * @property \App\Model\Entity\PreparationProduct[] $preparation_products
+ * @property \App\Model\Entity\PurchaseProduct[] $purchase_products
+ * @property \App\Model\Entity\RawProduct[] $raw_products
+ * @property \App\Model\Entity\WarehouseProduct[] $warehouse_products
  */
 class Product extends Entity
 {
@@ -37,5 +43,11 @@ class Product extends Entity
         'presentation' => true,
         'brand' => true,
         'category' => true,
+        'decoration_products' => true,
+        'filling_products' => true,
+        'preparation_products' => true,
+        'purchase_products' => true,
+        'raw_products' => true,
+        'warehouse_products' => true,
     ];
 }

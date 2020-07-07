@@ -69,12 +69,14 @@ class RawFillingsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('name')
+            ->scalar('name')
+            ->maxLength('name', 100)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
         $validator
-            ->integer('code')
+            ->scalar('code')
+            ->maxLength('code', 20)
             ->requirePresence('code', 'create')
             ->notEmptyString('code');
 

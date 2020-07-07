@@ -24,7 +24,7 @@ class ProductionRecipesControllerTest extends TestCase
     protected $fixtures = [
         'app.ProductionRecipes',
         'app.Productions',
-        'app.Recipes',
+        'app.RecipeDimensions',
         'app.FinalCakes',
         'app.ProdrecipeDetails',
     ];

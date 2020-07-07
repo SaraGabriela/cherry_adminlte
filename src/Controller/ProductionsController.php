@@ -19,10 +19,61 @@ class ProductionsController extends AppController
      */
     public function index()
     {
+        $this->paginate =([
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
+        ]);
         $productions = $this->paginate($this->Productions);
 
         $this->set(compact('productions'));
     }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function crudo()
+    {
+        $this->paginate =([
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
+        ]);
+        $productions = $this->paginate($this->Productions);
+
+        $this->set(compact('productions'));
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function crudoRelleno()
+    {
+        $this->paginate =([
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
+        ]);
+        $productions = $this->paginate($this->Productions);
+
+        $this->set(compact('productions'));
+    }
+
+    /**
+     * Index method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function decorado()
+    {
+        $this->paginate =([
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
+        ]);
+        $productions = $this->paginate($this->Productions);
+
+        $this->set(compact('productions'));
+    }
+
+
+
 
     /**
      * View method
@@ -48,17 +99,30 @@ class ProductionsController extends AppController
     public function add()
     {
         $production = $this->Productions->newEmptyEntity();
+        $this->loadModel('ProductionRecipes');
+        $this->loadModel('ProdrecipeDetails');
+        $this->loadModel('RecipeDimensions');
+        $this->loadModel('Branches');
         if ($this->request->is('post')) {
-            $production = $this->Productions->patchEntity($production, $this->request->getData());
-            if ($this->Productions->save($production)) {
+            $production = $this->Productions->patchEntity($production, $this->request->getData(), [
+                'associated' => [
+                    'ProductionRecipes'=>['associated' => ['ProdrecipeDetails']]
+                    //'ProductionRecipes'
+                ]
+            ]);
+            if ($result= $this->Productions->save($production)) {
                 $this->Flash->success(__('The production has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' =>'index']);
             }
             $this->Flash->error(__('The production could not be saved. Please, try again.'));
+            
         }
-        $this->set(compact('production'));
+        $recipe_dimensions = $this->RecipeDimensions->find('list', ['limit' => 200]);
+        $branches = $this->Branches->find('list', ['limit' => 200]);
+        $this->set(compact('production','recipe_dimensions','branches'));
     }
+
 
     /**
      * Edit method
@@ -69,8 +133,12 @@ class ProductionsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->loadModel('ProductionRecipes');
+        $this->loadModel('ProdrecipeDetails');
+        $this->loadModel('RecipeDimensions');
+        $this->loadModel('Branches');
         $production = $this->Productions->get($id, [
-            'contain' => [],
+            'contain' => ['ProductionRecipes'=>['RecipeDimensions','ProdrecipeDetails']],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $production = $this->Productions->patchEntity($production, $this->request->getData());
@@ -103,4 +171,5 @@ class ProductionsController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
 }

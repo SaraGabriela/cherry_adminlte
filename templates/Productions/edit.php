@@ -4,31 +4,73 @@
  * @var \App\Model\Entity\Production $production
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $production->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $production->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Productions'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<?php
+ C
+?>
+<section class="content">
+    <?php echo $this->Html->script('jquery-3.5.1.min.js');?>
+    <div class="row">
+    <?= $this->Form->create($production) ?>
+        <div class="col-md-4">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Añadir Crudo Relleno</h3>
+                    <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+                    <!-- Here is a label for example -->
+                    <?= $this->Html->link(__('Ver Tabla'), ['action' => 'index'], ['class' => 'btn btn-primary btn-xs']) ?>
+
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="box-body">
+                    
+                    <?php echo $this->Form->control('date');
+                        echo $this->Form->control('number_cakes');
+                        echo $this->Form->control('observations');
+                    
+                    ?>
+
+                
+                </div>
+            </div>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="productions form content">
-            <?= $this->Form->create($production) ?>
-            <fieldset>
-                <legend><?= __('Edit Production') ?></legend>
-                <?php
-                    echo $this->Form->control('date');
-                    echo $this->Form->control('number_cakes');
-                    echo $this->Form->control('observations');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+        <div class="col-md-8">
+            <div class="box box-solid box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Añadir Productos</h3>
+                    <div class="box-tools pull-right">
+                    <!-- Buttons, labels, and many other things can be placed here! -->
+
+
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <div class="box-body">
+                    <table>
+
+                        <?php 
+                        $fipro=$production['production_recipes'];
+                        //print_r($fipro);
+                        $person = Array();
+                        $person['name'] = "Joe";
+                        $person['age'] = 22;
+                        if ($fipro) :?>
+                            <?php foreach ($fipro as $j=>$b) :?>
+                                <?php  
+                                print($j);
+                                print_r($b['recipe_dimension']['description']);
+                                 ?>   
+                               
+                            <?php endforeach;?> 
+                        <?php endif; ?>
+                        
+                    </table>
+                </div>
+            </div>
         </div>
+        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->end() ?>
     </div>
-</div>
+
+</section>

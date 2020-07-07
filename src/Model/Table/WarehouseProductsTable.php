@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\BranchWarehousesTable&\Cake\ORM\Association\BelongsTo $BranchWarehouses
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $Products
+ * @property \App\Model\Table\TransferWarehouseProductsTable&\Cake\ORM\Association\HasMany $TransferWarehouseProducts
  *
  * @method \App\Model\Entity\WarehouseProduct newEmptyEntity()
  * @method \App\Model\Entity\WarehouseProduct newEntity(array $data, array $options = [])
@@ -51,6 +52,9 @@ class WarehouseProductsTable extends Table
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id',
             'joinType' => 'INNER',
+        ]);
+        $this->hasMany('TransferWarehouseProducts', [
+            'foreignKey' => 'warehouse_product_id',
         ]);
     }
 

@@ -11,7 +11,6 @@ use Cake\Validation\Validator;
 /**
  * Alliances Model
  *
- * @property \App\Model\Table\CakeSalesTable&\Cake\ORM\Association\HasMany $CakeSales
  * @property \App\Model\Table\ContractsTable&\Cake\ORM\Association\HasMany $Contracts
  *
  * @method \App\Model\Entity\Alliance newEmptyEntity()
@@ -41,12 +40,9 @@ class AlliancesTable extends Table
         parent::initialize($config);
 
         $this->setTable('alliances');
-        $this->setDisplayField('client');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('CakeSales', [
-            'foreignKey' => 'alliance_id',
-        ]);
         $this->hasMany('Contracts', [
             'foreignKey' => 'alliance_id',
         ]);

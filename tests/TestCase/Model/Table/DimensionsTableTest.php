@@ -29,7 +29,7 @@ class DimensionsTableTest extends TestCase
         'app.DecorationDimensions',
         'app.EquivalenceDimensions',
         'app.FillingDimensions',
-        'app.Recipes',
+        'app.RecipeDimensions',
     ];
 
     /**

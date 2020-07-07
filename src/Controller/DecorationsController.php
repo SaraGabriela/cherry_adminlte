@@ -19,8 +19,11 @@ class DecorationsController extends AppController
      */
     public function index()
     {
+        
+        $this->paginate=[
+            'contain' => ['DecorationProducts'=>['Products','DecorationProductMeasures'=>['DecorationDimensions'=>['Dimensions']]],'DecorationDimensions'=>['Dimensions']]
+        ];
         $decorations = $this->paginate($this->Decorations);
-
         $this->set(compact('decorations'));
     }
 
@@ -48,17 +51,31 @@ class DecorationsController extends AppController
     public function add()
     {
         $decoration = $this->Decorations->newEmptyEntity();
+        $this->loadModel('DecorationDimensions');
+        $this->loadModel('DecorationProducts');
+        $this->loadModel('Recipes');
+        $this->loadModel('Dimensions');
         if ($this->request->is('post')) {
-            $decoration = $this->Decorations->patchEntity($decoration, $this->request->getData());
-            if ($this->Decorations->save($decoration)) {
+            $decoration = $this->Decorations->patchEntity($decoration, $this->request->getData(), [
+                'associated' => [
+                    'DecorationProducts',
+                    'DecorationDimensions'
+                ]
+            ]);
+            if ($result= $this->Decorations->save($decoration)) {
                 $this->Flash->success(__('The decoration has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' =>'edit', $result->id]);
+                return $this->redirect(['action' =>'edit', $result->id]);
             }
-            $this->Flash->error(__('The decoration could not be saved. Please, try again.'));
+            $this->Flash->error(__('The decoration filldecorationing could not be saved. Please, try again.'));
+            
         }
-        $this->set(compact('decoration'));
+        $dimensions = $this->DecorationDimensions->Dimensions->find('list', ['limit' => 200]);
+        $products = $this->DecorationProducts->Products->find('list', ['limit' => 200]);
+        $this->set(compact('decoration','dimensions','products'));
     }
+
 
     /**
      * Edit method
@@ -69,19 +86,34 @@ class DecorationsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->loadModel('DecorationDimensions');
+        $this->loadModel('DecorationProducts');
+        $this->loadModel('DecorationProductMeasures');
+        $this->loadModel('Products');
         $decoration = $this->Decorations->get($id, [
-            'contain' => [],
+            'contain' => ['DecorationDimensions'=>['DecorationProductMeasures'=>'DecorationProducts'], 'DecorationProducts'=>['Products','DecorationProductMeasures'],],
         ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $decoration = $this->Decorations->patchEntity($decoration, $this->request->getData());
-            if ($this->Decorations->save($decoration)) {
-                $this->Flash->success(__('The decoration has been saved.'));
+            $decoration = $this->Decorations->patchEntity($decoration, $this->request->getData(),[
+                'associated' => [
+                    'DecorationDimensions'=>['associated' => ['DecorationProductMeasures'=>['associated' => ['DecorationProducts']],]],
+                ]
+            ]);
+            if (  $this->Decorations->save($decoration)) {
+                $this->Flash->success(__('The decoration filldecorationing has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The decoration could not be saved. Please, try again.'));
+            $this->Flash->error(__('The decoration decoration could not be saved. Please, try again.'));
         }
         $this->set(compact('decoration'));
+        $dimensions = $this->DecorationDimensions->Dimensions->find('list', ['limit' => 200]);
+        $pro = $this->DecorationProducts->find('list')->where(['decoration_id =' => $id]);;
+        $products =$this->DecorationProducts->Products->find('list')
+        ->where(['id in' => $pro]);
+
+        $this->set(compact('decoration','dimensions','products','pro'));
     }
 
     /**

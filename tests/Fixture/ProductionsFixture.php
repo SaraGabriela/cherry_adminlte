@@ -40,7 +40,7 @@ class ProductionsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'date' => '2020-05-06',
+                'date' => '2020-06-14',
                 'number_cakes' => 1,
                 'observations' => 'Lorem ipsum dolor sit amet',
             ],

@@ -19,10 +19,6 @@
             <h3><?= h($recipe->id) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Dimension') ?></th>
-                    <td><?= $recipe->has('dimension') ? $this->Html->link($recipe->dimension->id, ['controller' => 'Dimensions', 'action' => 'view', $recipe->dimension->id]) : '' ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Raw') ?></th>
                     <td><?= $recipe->has('raw') ? $this->Html->link($recipe->raw->name, ['controller' => 'Raws', 'action' => 'view', $recipe->raw->id]) : '' ?></td>
                 </tr>
@@ -39,26 +35,80 @@
                     <td><?= h($recipe->cooking_time) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Special Order') ?></th>
-                    <td><?= h($recipe->special_order) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Observations') ?></th>
                     <td><?= h($recipe->observations) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Comercial Name') ?></th>
+                    <td><?= h($recipe->comercial_name) ?></td>
+                </tr>
+                <tr>
+                    <th><?= __('Photo') ?></th>
+                    <td><?= h($recipe->photo) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
                     <td><?= $this->Number->format($recipe->id) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Cake Id') ?></th>
-                    <td><?= $this->Number->format($recipe->cake_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Price') ?></th>
-                    <td><?= $this->Number->format($recipe->price) ?></td>
-                </tr>
             </table>
+            <div class="related">
+                <h4><?= __('Related Contract Recipes') ?></h4>
+                <?php if (!empty($recipe->contract_recipes)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Id') ?></th>
+                            <th><?= __('Contract Id') ?></th>
+                            <th><?= __('Recipe Id') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($recipe->contract_recipes as $contractRecipes) : ?>
+                        <tr>
+                            <td><?= h($contractRecipes->id) ?></td>
+                            <td><?= h($contractRecipes->contract_id) ?></td>
+                            <td><?= h($contractRecipes->recipe_id) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'ContractRecipes', 'action' => 'view', $contractRecipes->id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'ContractRecipes', 'action' => 'edit', $contractRecipes->id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'ContractRecipes', 'action' => 'delete', $contractRecipes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contractRecipes->id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
+            <div class="related">
+                <h4><?= __('Related Recipe Dimensions') ?></h4>
+                <?php if (!empty($recipe->recipe_dimensions)) : ?>
+                <div class="table-responsive">
+                    <table>
+                        <tr>
+                            <th><?= __('Recipe Dimensions Id') ?></th>
+                            <th><?= __('Dimension Id') ?></th>
+                            <th><?= __('Description') ?></th>
+                            <th><?= __('Recipe Id') ?></th>
+                            <th><?= __('Price') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                        <?php foreach ($recipe->recipe_dimensions as $recipeDimensions) : ?>
+                        <tr>
+                            <td><?= h($recipeDimensions->recipe_dimensions_id) ?></td>
+                            <td><?= h($recipeDimensions->dimension_id) ?></td>
+                            <td><?= h($recipeDimensions->description) ?></td>
+                            <td><?= h($recipeDimensions->recipe_id) ?></td>
+                            <td><?= h($recipeDimensions->price) ?></td>
+                            <td class="actions">
+                                <?= $this->Html->link(__('View'), ['controller' => 'RecipeDimensions', 'action' => 'view', $recipeDimensions->recipe_dimensions_id]) ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'RecipeDimensions', 'action' => 'edit', $recipeDimensions->recipe_dimensions_id]) ?>
+                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'RecipeDimensions', 'action' => 'delete', $recipeDimensions->recipe_dimensions_id], ['confirm' => __('Are you sure you want to delete # {0}?', $recipeDimensions->recipe_dimensions_id)]) ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </div>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </div>

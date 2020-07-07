@@ -17,11 +17,11 @@ class PurchasesFixture extends TestFixture
      */
     // phpcs:disable
     public $fields = [
-        'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
+        'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'person_in_charge' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_general_ci', 'comment' => '', 'precision' => null],
+        'person_in_charge' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null],
         'delivery_date' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        'provider_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'provider_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
             'proveedor_fokey' => ['type' => 'index', 'columns' => ['provider_id'], 'length' => []],
         ],
@@ -31,7 +31,7 @@ class PurchasesFixture extends TestFixture
         ],
         '_options' => [
             'engine' => 'InnoDB',
-            'collation' => 'utf8mb4_general_ci'
+            'collation' => 'utf8mb4_0900_ai_ci'
         ],
     ];
     // phpcs:enable
@@ -45,9 +45,9 @@ class PurchasesFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'date' => '2020-04-28',
+                'date' => '2020-06-14',
                 'person_in_charge' => 'Lorem ipsum dolor sit amet',
-                'delivery_date' => '2020-04-28',
+                'delivery_date' => '2020-06-14',
                 'provider_id' => 1,
             ],
         ];

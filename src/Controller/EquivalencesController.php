@@ -19,9 +19,12 @@ class EquivalencesController extends AppController
      */
     public function index()
     {
+        $this->paginate=[
+            'contain' => ['Raws','EquivalenceDimensions'=>['Dimensions']],
+        ];
         $equivalences = $this->paginate($this->Equivalences);
 
-        $this->set(compact('equivalences'));
+        $this->set(compact('equivalences',$equivalences));
     }
 
     /**
@@ -34,7 +37,7 @@ class EquivalencesController extends AppController
     public function view($id = null)
     {
         $equivalence = $this->Equivalences->get($id, [
-            'contain' => ['EquivalenceDimensions', 'Raws'],
+            'contain' => ['EquivalenceDimensions'=>['Dimensions'], 'Raws'],
         ]);
 
         $this->set('equivalence', $equivalence);
@@ -48,8 +51,16 @@ class EquivalencesController extends AppController
     public function add()
     {
         $equivalence = $this->Equivalences->newEmptyEntity();
+        $this->loadModel('Dimensions');
+        $this->loadModel('Raws');
+        $this->loadModel('EquivalenceDimensions');
         if ($this->request->is('post')) {
-            $equivalence = $this->Equivalences->patchEntity($equivalence, $this->request->getData());
+            $equivalence = $this->Equivalences->patchEntity($equivalence, $this->request->getData(), [
+                'associated' => [
+                    'Raws',
+                    'EquivalenceDimensions'
+                ]
+            ]);
             if ($this->Equivalences->save($equivalence)) {
                 $this->Flash->success(__('The equivalence has been saved.'));
 
@@ -57,7 +68,9 @@ class EquivalencesController extends AppController
             }
             $this->Flash->error(__('The equivalence could not be saved. Please, try again.'));
         }
-        $this->set(compact('equivalence'));
+        $raws = $this->Raws->find('all');
+        $dimensions = $this->EquivalenceDimensions->Dimensions->find('list', ['limit' => 200]);
+        $this->set(compact('equivalence','dimensions','raws'));
     }
 
     /**

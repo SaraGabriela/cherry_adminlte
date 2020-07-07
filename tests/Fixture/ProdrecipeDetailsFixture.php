@@ -19,22 +19,19 @@ class ProdrecipeDetailsFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'production_recipe_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'branch_warehouse_id' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'cake_phase' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'current_ubication' => ['type' => 'string', 'length' => 250, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null],
-        'special_order' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
-        'priority' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'branch' => ['type' => 'string', 'length' => 250, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null],
+        'priority' => ['type' => 'string', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null],
+        'branch' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'observations' => ['type' => 'string', 'length' => 600, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null],
-        'date_phase_change' => ['type' => 'date', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
+        'phase' => ['type' => 'string', 'length' => 50, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_0900_ai_ci', 'comment' => '', 'precision' => null],
+        'quantity' => ['type' => 'integer', 'length' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         '_indexes' => [
-            'branch_warehouse_id' => ['type' => 'index', 'columns' => ['branch_warehouse_id'], 'length' => []],
             'production_recipe_id' => ['type' => 'index', 'columns' => ['production_recipe_id'], 'length' => []],
+            'fk_sucursal' => ['type' => 'index', 'columns' => ['branch'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'prodrecipe_details_ibfk_1' => ['type' => 'foreign', 'columns' => ['branch_warehouse_id'], 'references' => ['branch_warehouses', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'prodrecipe_details_ibfk_2' => ['type' => 'foreign', 'columns' => ['production_recipe_id'], 'references' => ['production_recipes', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_pro_reci' => ['type' => 'foreign', 'columns' => ['production_recipe_id'], 'references' => ['production_recipes', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
+            'fk_sucursal' => ['type' => 'foreign', 'columns' => ['branch'], 'references' => ['branches', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
         ],
         '_options' => [
             'engine' => 'InnoDB',
@@ -53,14 +50,11 @@ class ProdrecipeDetailsFixture extends TestFixture
             [
                 'id' => 1,
                 'production_recipe_id' => 1,
-                'branch_warehouse_id' => 1,
-                'cake_phase' => 1,
-                'current_ubication' => 'Lorem ipsum dolor sit amet',
-                'special_order' => 1,
-                'priority' => 1,
-                'branch' => 'Lorem ipsum dolor sit amet',
+                'priority' => 'Lorem ipsum dolor sit amet',
+                'branch' => 1,
                 'observations' => 'Lorem ipsum dolor sit amet',
-                'date_phase_change' => '2020-05-06',
+                'phase' => 'Lorem ipsum dolor sit amet',
+                'quantity' => 1,
             ],
         ];
         parent::init();

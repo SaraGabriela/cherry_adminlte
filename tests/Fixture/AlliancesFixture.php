@@ -42,7 +42,7 @@ class AlliancesFixture extends TestFixture
             [
                 'id' => 1,
                 'client' => 'Lorem ipsum dolor sit amet',
-                'date' => '2020-05-06',
+                'date' => '2020-06-14',
                 'ticket_value' => 1.5,
                 'ticket_quantity' => 1,
             ],

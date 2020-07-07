@@ -22,15 +22,13 @@
             <fieldset>
                 <legend><?= __('Edit Recipe') ?></legend>
                 <?php
-                    echo $this->Form->control('dimension_id', ['options' => $dimensions]);
                     echo $this->Form->control('raw_id', ['options' => $raws]);
                     echo $this->Form->control('raw_filling_id', ['options' => $rawFillings]);
                     echo $this->Form->control('decoration_id', ['options' => $decorations]);
-                    echo $this->Form->control('cake_id');
                     echo $this->Form->control('cooking_time');
-                    echo $this->Form->control('special_order');
-                    echo $this->Form->control('price');
                     echo $this->Form->control('observations');
+                    echo $this->Form->control('comercial_name');
+                    echo $this->Form->control('photo');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
