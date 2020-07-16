@@ -26,10 +26,20 @@ class ProdrecipeDetailsController extends AppController
 
         $this->set(compact('prodrecipeDetails'));
     }
-
-    /**
+    public function setPhase($id = null){
+        $prodrecipeDetail = $this->ProdrecipeDetails->get($id);
+        if($prodrecipeDetail->phase === 'inicio'){
+            $prodrecipeDetail->phase = "crudo-relleno";
+            $this->ProdrecipeDetails->save($prodrecipeDetail);
+            return $this->redirect(['action' => '../Productions/crudo-relleno']);
+        }
+        $prodrecipeDetail->phase = "decorado";
+        $this->ProdrecipeDetails->save($prodrecipeDetail);
+        return $this->redirect(['action' => '../Productions/decorado']);
+    }
+    /** 
      * View method
-     *
+     * 
      * @param string|null $id Prodrecipe Detail id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
@@ -90,7 +100,7 @@ class ProdrecipeDetailsController extends AppController
     }
 
     /**
-     * Delete method
+     * Delete method 
      *
      * @param string|null $id Prodrecipe Detail id.
      * @return \Cake\Http\Response|null|void Redirects to index.

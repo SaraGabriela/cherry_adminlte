@@ -20,13 +20,13 @@ class StocksController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['RecipeDimensions', 'Branches'],
+            'contain' => ['Branches','RecipeDimensions'=>['Recipes','Dimensions']]
         ];
         $stocks = $this->paginate($this->Stocks);
 
         $this->set(compact('stocks'));
     }
-
+    
     /**
      * View method
      *
@@ -37,7 +37,7 @@ class StocksController extends AppController
     public function view($id = null)
     {
         $stock = $this->Stocks->get($id, [
-            'contain' => ['RecipeDimensions', 'Branches'],
+            'contain' => ['RecipeDimensions'=>['Recipes','Dimensions'], 'Branches'],
         ]);
 
         $this->set('stock', $stock);
@@ -75,7 +75,7 @@ class StocksController extends AppController
     public function edit($id = null)
     {
         $stock = $this->Stocks->get($id, [
-            'contain' => [],
+            'contain' => ['RecipeDimensions'=>['Recipes','Dimensions'], 'Branches'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $stock = $this->Stocks->patchEntity($stock, $this->request->getData());

@@ -4,53 +4,75 @@
  * @var \App\Model\Entity\Recipe[]|\Cake\Collection\CollectionInterface $recipes
  */
 ?>
-<div class="recipes index content">
-    <?= $this->Html->link(__('New Recipe'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Recipes') ?></h3>
-    <div class="table-responsive">
-        <table>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Recetas
+    <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title"><?php echo __('Lista'); ?></h3>
+
+          <div class="box-tools">
+            <form action="<?php echo $this->Url->build(); ?>" method="POST">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
+
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('raw_id') ?></th>
-                    <th><?= $this->Paginator->sort('raw_filling_id') ?></th>
-                    <th><?= $this->Paginator->sort('decoration_id') ?></th>
-                    <th><?= $this->Paginator->sort('cooking_time') ?></th>
-                    <th><?= $this->Paginator->sort('observations') ?></th>
-                    <th><?= $this->Paginator->sort('comercial_name') ?></th>
-                    <th><?= $this->Paginator->sort('photo') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+              <tr>
+                    <th scope="col"><?= $this->Paginator->sort('raw_id','Crudo') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('raw_filling_id','Crudo relleno') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('decoration_id','Decorado') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('cooking_time','Tiempo de preparado') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('comercial_name','Nombre comercial') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('photo','Imagen') ?></th>
+                    <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
                 </tr>
+
             </thead>
             <tbody>
-                <?php foreach ($recipes as $recipe): ?>
+              <?php foreach ($recipes as $recipe): ?>
                 <tr>
-                    <td><?= $this->Number->format($recipe->id) ?></td>
-                    <td><?= $recipe->has('raw') ? $this->Html->link($recipe->raw->name, ['controller' => 'Raws', 'action' => 'view', $recipe->raw->id]) : '' ?></td>
-                    <td><?= $recipe->has('raw_filling') ? $this->Html->link($recipe->raw_filling->name, ['controller' => 'RawFillings', 'action' => 'view', $recipe->raw_filling->id]) : '' ?></td>
-                    <td><?= $recipe->has('decoration') ? $this->Html->link($recipe->decoration->id, ['controller' => 'Decorations', 'action' => 'view', $recipe->decoration->id]) : '' ?></td>
+                    <td><?= h($recipe->raw->name) ?></td>
+                    <td><?= h($recipe->raw_filling->name) ?></td>
+                    <td><?= h($recipe->decoration->description) ?></td>
                     <td><?= h($recipe->cooking_time) ?></td>
-                    <td><?= h($recipe->observations) ?></td>
                     <td><?= h($recipe->comercial_name) ?></td>
                     <td><?= h($recipe->photo) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $recipe->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $recipe->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $recipe->id], ['confirm' => __('Are you sure you want to delete # {0}?', $recipe->id)]) ?>
-                    </td>
+
+                  <td class="actions text-right">
+                      <?= $this->Html->link(__('View'), ['action' => 'view', $recipe->id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $recipe->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $recipe->id], ['confirm' => __('Are you sure you want to delete # {0}?', $recipe->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                  </td>
                 </tr>
-                <?php endforeach; ?>
+
+
+              <?php endforeach; ?>
             </tbody>
-        </table>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+  </div>
+</section>

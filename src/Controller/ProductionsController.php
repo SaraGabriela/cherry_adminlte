@@ -32,13 +32,45 @@ class ProductionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function crudo()
+    public function validatePhase(&$productions, string $phase){
+        $cantProductions = 0;
+        foreach($productions as $production){
+            $cantRecipes = 0;
+            foreach($production->production_recipes as $production_recipe){
+                $cantDetails = 0;
+                foreach($production_recipe->prodrecipe_details as $prodrecipe_detail){
+                    if($prodrecipe_detail->phase == $phase){
+                        $prodrecipe_detail->val = "yes";
+                        $cantDetails ++;
+                    }
+                }
+                if($cantDetails > 0){
+                    $production_recipe->val = "yes";
+                    $cantRecipes ++;
+                }
+            }
+            if($cantRecipes > 0){
+                $production->val = "yes"; 
+                $cantProductions ++;
+            }
+        }
+        if($cantProductions > 0){
+            $productions->val = "yes";
+        }else{ 
+            $productions->val = "no";
+        }
+    }
+    public function setPhase($id = null){
+        return $this->redirect(['action' => '../ProdrecipeDetails/setPhase', $id]);
+    }
+    public function crudo($id = null)
     {
+        //_____________________________/-__________________________________________
         $this->paginate =([
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         $productions = $this->paginate($this->Productions);
-
+        $this->validatePhase($productions, "inicio");
         $this->set(compact('productions'));
     }
 
@@ -47,16 +79,16 @@ class ProductionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    
     public function crudoRelleno()
     {
         $this->paginate =([
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         $productions = $this->paginate($this->Productions);
-
+        $this->validatePhase($productions, "crudo-relleno");
         $this->set(compact('productions'));
     }
-
     /**
      * Index method
      *
@@ -68,7 +100,7 @@ class ProductionsController extends AppController
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         $productions = $this->paginate($this->Productions);
-
+        $this->validatePhase($productions, "decorado");
         $this->set(compact('productions'));
     }
 
@@ -103,7 +135,7 @@ class ProductionsController extends AppController
         $this->loadModel('ProdrecipeDetails');
         $this->loadModel('RecipeDimensions');
         $this->loadModel('Branches');
-        if ($this->request->is('post')) {
+        if ($this->request->is('post')) { 
             $production = $this->Productions->patchEntity($production, $this->request->getData(), [
                 'associated' => [
                     'ProductionRecipes'=>['associated' => ['ProdrecipeDetails']]

@@ -1,33 +1,72 @@
+
+
+
+
 <?php
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Recipe $recipe
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Recipes'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Receta
+      <small><?php echo __('Crear'); ?></small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-9">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><?php echo __('Detalle'); ?></h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <?php echo $this->Form->create($recipe, ['role' => 'form']); ?>
+            <div class="box-body">
+              <?php
+              echo $this->Form->control('raw_id',['options' => $raws,
+                'label' => 'Crudo:',
+              ]);
+              echo $this->Form->control('raw_filling_id',['options' => $rawFillings,
+                'label' => 'Crudo Relleno:',
+              ]);
+              echo $this->Form->control('decoration_id',['options' => $decorations,
+                'label' => 'Decorado:',
+              ]);
+              echo $this->Form->control('cooking_time',[
+                'label' => 'Tiempo para cocinar:',
+              ]);
+              echo $this->Form->control('observations',[
+                'label' => 'Observaciones:',
+              ]);
+
+              echo $this->Form->control('comercial_name',[
+                'label' => 'Nombre Comercial',
+              ]);
+
+              echo $this->Form->control('photo',[
+                'label' => 'Imagen',
+              ]);
+
+              ?>
+            </div>
+            <!-- /.box-body -->
+
+          <?php echo $this->Form->submit(__('Aceptar')); ?>
+
+          <?php echo $this->Form->end(); ?>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="recipes form content">
-            <?= $this->Form->create($recipe) ?>
-            <fieldset>
-                <legend><?= __('Add Recipe') ?></legend>
-                <?php
-                    echo $this->Form->control('raw_id', ['options' => $raws]);
-                    echo $this->Form->control('raw_filling_id', ['options' => $rawFillings]);
-                    echo $this->Form->control('decoration_id', ['options' => $decorations]);
-                    echo $this->Form->control('cooking_time');
-                    echo $this->Form->control('observations');
-                    echo $this->Form->control('comercial_name');
-                    echo $this->Form->control('photo');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
-</div>
+        <!-- /.box -->
+      </div>
+  </div>
+  <!-- /.row -->
+</section>

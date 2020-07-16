@@ -1,40 +1,57 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Stock $stock
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Stock'), ['action' => 'edit', $stock->stock_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Stock'), ['action' => 'delete', $stock->stock_id], ['confirm' => __('Are you sure you want to delete # {0}?', $stock->stock_id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Stocks'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Stock'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+
+
+
+
+
+
+<section class="content-header">
+  <h1>
+    Stock Tortas
+    <small><?php echo __('Ver'); ?></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-3">
+          <div class="box box-solid">
+            <!-- /.box-body -->
+              <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Detalle</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form role="form">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre:</label>
+                    <dd class="form-control"><?= h($stock->recipe_dimension->recipe->comercial_name) ?></dd>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Dimensiones</label>
+                    <dd class="form-control"><?= h($stock->recipe_dimension->dimension->description) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Cantidad</label>
+                       <dd class="form-control"><?= h($stock->quantity) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Sucursal</label>
+                       <dd class="form-control"><?= h($stock->branch->name) ?></dd>
+                  </div>
+                </div>
+                <!-- /.box-body -->
+              </form>
+            </div>
+          </div>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="stocks view content">
-            <h3><?= h($stock->stock_id) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Recipe Dimension') ?></th>
-                    <td><?= $stock->has('recipe_dimension') ? $this->Html->link($stock->recipe_dimension->recipe_dimensions_id, ['controller' => 'RecipeDimensions', 'action' => 'view', $stock->recipe_dimension->recipe_dimensions_id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Branch') ?></th>
-                    <td><?= $stock->has('branch') ? $this->Html->link($stock->branch->name, ['controller' => 'Branches', 'action' => 'view', $stock->branch->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Stock Id') ?></th>
-                    <td><?= $this->Number->format($stock->stock_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Quantity') ?></th>
-                    <td><?= $this->Number->format($stock->quantity) ?></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+
+      </div>
+</section>

@@ -1,52 +1,66 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Sale[]|\Cake\Collection\CollectionInterface $sales
- */
-?>
-<div class="sales index content">
-    <?= $this->Html->link(__('New Sale'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Sales') ?></h3>
-    <div class="table-responsive">
-        <table>
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Ventas
+    <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title"><?php echo __('Lista'); ?></h3>
+
+          <div class="box-tools">
+            <form action="<?php echo $this->Url->build(); ?>" method="POST">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
+
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('sale_id') ?></th>
-                    <th><?= $this->Paginator->sort('stock_id') ?></th>
-                    <th><?= $this->Paginator->sort('date') ?></th>
-                    <th><?= $this->Paginator->sort('price') ?></th>
-                    <th><?= $this->Paginator->sort('sales_type') ?></th>
-                    <th><?= $this->Paginator->sort('quantity') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+              <tr>
+
+                  <th scope="col"><?= $this->Paginator->sort('date','Fecha') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('price','Precio') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('sales_type','Tipo de venta') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('quantity','Cantidad') ?></th>
+
+                  <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+              </tr>
             </thead>
             <tbody>
-                <?php foreach ($sales as $sale): ?>
+              <?php foreach ($sales as $sale): ?>
                 <tr>
-                    <td><?= $this->Number->format($sale->sale_id) ?></td>
-                    <td><?= $this->Number->format($sale->stock_id) ?></td>
-                    <td><?= h($sale->date) ?></td>
-                    <td><?= $this->Number->format($sale->price) ?></td>
-                    <td><?= h($sale->sales_type) ?></td>
-                    <td><?= $this->Number->format($sale->quantity) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $sale->sale_id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $sale->sale_id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $sale->sale_id], ['confirm' => __('Are you sure you want to delete # {0}?', $sale->sale_id)]) ?>
-                    </td>
+                  <td><?= h($sale->date) ?></td>
+                  <td><?= h($sale->price) ?></td>
+                  <td><?= h($sale->sales_type) ?></td>
+                  <td><?= h($sale->quantity) ?></td>
+                  <td class="actions text-right">
+                      <?= $this->Html->link(__('View'), ['action' => 'view', $sale->sale_id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $sale->sale_id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $sale->sale_id], ['confirm' => __('Are you sure you want to delete # {0}?', $sale->sale_id), 'class'=>'btn btn-danger btn-xs']) ?>
+                  </td>
                 </tr>
-                <?php endforeach; ?>
+              <?php endforeach; ?>
             </tbody>
-        </table>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+  </div>
+</section>

@@ -1,73 +1,88 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\RecipeDimension $recipeDimension
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Recipe Dimension'), ['action' => 'edit', $recipeDimension->recipe_dimensions_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Recipe Dimension'), ['action' => 'delete', $recipeDimension->recipe_dimensions_id], ['confirm' => __('Are you sure you want to delete # {0}?', $recipeDimension->recipe_dimensions_id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Recipe Dimensions'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Recipe Dimension'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="recipeDimensions view content">
-            <h3><?= h($recipeDimension->recipe_dimensions_id) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Dimension') ?></th>
-                    <td><?= $recipeDimension->has('dimension') ? $this->Html->link($recipeDimension->dimension->description, ['controller' => 'Dimensions', 'action' => 'view', $recipeDimension->dimension->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Description') ?></th>
-                    <td><?= h($recipeDimension->description) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Recipe') ?></th>
-                    <td><?= $recipeDimension->has('recipe') ? $this->Html->link($recipeDimension->recipe->id, ['controller' => 'Recipes', 'action' => 'view', $recipeDimension->recipe->id]) : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Recipe Dimensions Id') ?></th>
-                    <td><?= $this->Number->format($recipeDimension->recipe_dimensions_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Price') ?></th>
-                    <td><?= $this->Number->format($recipeDimension->price) ?></td>
-                </tr>
-            </table>
-            <div class="related">
-                <h4><?= __('Related Production Recipes') ?></h4>
-                <?php if (!empty($recipeDimension->production_recipes)) : ?>
-                <div class="table-responsive">
-                    <table>
-                        <tr>
-                            <th><?= __('Id') ?></th>
-                            <th><?= __('Production Id') ?></th>
-                            <th><?= __('Recipe Dimension Id') ?></th>
-                            <th><?= __('Observations') ?></th>
-                            <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
-                        <?php foreach ($recipeDimension->production_recipes as $productionRecipes) : ?>
-                        <tr>
-                            <td><?= h($productionRecipes->id) ?></td>
-                            <td><?= h($productionRecipes->production_id) ?></td>
-                            <td><?= h($productionRecipes->recipe_dimension_id) ?></td>
-                            <td><?= h($productionRecipes->observations) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'ProductionRecipes', 'action' => 'view', $productionRecipes->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'ProductionRecipes', 'action' => 'edit', $productionRecipes->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'ProductionRecipes', 'action' => 'delete', $productionRecipes->id], ['confirm' => __('Are you sure you want to delete # {0}?', $productionRecipes->id)]) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </table>
+<section class="content-header">
+  <h1>
+    Receta Dimensiones
+    <small><?php echo __('Ver'); ?></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-2">
+          <div class="box box-solid">
+            <!-- /.box-body -->
+              <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Detalle</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form role="form">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Dimensiones:</label>
+                    <dd class="form-control"><?= h($recipeDimension->dimension->description) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Receta:</label>
+                    <dd class="form-control"><?= h($recipeDimension->recipe->id) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Precio:</label>
+                       <dd class="form-control"><?= h($recipeDimension->price) ?></dd>
+                  </div>        
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Descripción:</label>
+                       <dd class="form-control"><?= h($recipeDimension->description) ?></dd>
+                  </div> 
+
                 </div>
-                <?php endif; ?>
+                <!-- /.box-body -->
+              </form>
             </div>
+          </div>
         </div>
+
+
+    <div class="col-md-6">
+      <div class="box box-solid">
+        <div class="box-header with-border">
+          <i class="fa fa-share-alt"></i>
+          <h3 class="box-title"><?= __('Produccion Receta') ?></h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <?php if (!empty($recipeDimension->production_recipes)): ?>
+          <table class="table table-hover">
+              <tr>
+              <th scope="col"><?= $this->Paginator->sort('Dimension','Dimensiones') ?></th>
+
+              <th scope="col"><?= $this->Paginator->sort('Price','Precio') ?></th>
+              <th scope="col"><?= $this->Paginator->sort('Description','Descripcion') ?></th>
+                    <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+
+
+              </tr>
+              <?php foreach ($recipeDimension->production_recipes as $productionRecipes): ?>
+              <tr>
+
+              </tr>
+              <?php endforeach; ?>
+          </table>
+          <?php endif; ?>
+        </div>
+      </div>
     </div>
-</div>
+      </div>
+
+
+
+
+
+
+</section>

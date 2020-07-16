@@ -50,20 +50,38 @@ class RecipeDimensionsController extends AppController
      */
     public function add()
     {
+        
         $recipeDimension = $this->RecipeDimensions->newEmptyEntity();
         if ($this->request->is('post')) {
+
             $recipeDimension = $this->RecipeDimensions->patchEntity($recipeDimension, $this->request->getData());
-            $recipeDimension->description=$recipeDimension->recipes->comercial_name." x ".$recipeDimension->dimensions->description;
-            if ($this->RecipeDimensions->save($recipeDimension)) {
+    
+       
+
+            if ($result= $this->RecipeDimensions->save($recipeDimension)) {
+                $recipeDimension = $this->RecipeDimensions->get($result->recipe_dimensions_id, [
+                    'contain' => ['Recipes', 'Dimensions'],
+                ]);
+                    $recipeDimension = $this->RecipeDimensions->patchEntity($recipeDimension, $this->request->getData());
+                    $recipeDimension->description=$recipeDimension->recipe->comercial_name." x ".$recipeDimension->dimension->description;
+                    if ($this->RecipeDimensions->save($recipeDimension)) {
+                        $this->Flash->success(__('The recipe dimension has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    $this->Flash->error(__('The recipe dimension could not be saved. Please, try again.'));
+                
                 $this->Flash->success(__('The recipe dimension has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The recipe dimension could not be saved. Please, try again.'));
         }
         $dimensions = $this->RecipeDimensions->Dimensions->find('list', ['limit' => 200]);
         $recipes = $this->RecipeDimensions->Recipes->find('list', ['limit' => 200]);
+        print($dimensions);
+        print($recipes);
         $this->set(compact('recipeDimension', 'dimensions', 'recipes'));
+
     }
 
     /**
@@ -76,14 +94,15 @@ class RecipeDimensionsController extends AppController
     public function edit($id = null)
     {
         $recipeDimension = $this->RecipeDimensions->get($id, [
-            'contain' => [],
+            'contain' => ['Recipes', 'Dimensions'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $recipeDimension = $this->RecipeDimensions->patchEntity($recipeDimension, $this->request->getData());
+            $recipeDimension->description=$recipeDimension->recipe->comercial_name." x ".$recipeDimension->dimension->description;
+
             if ($this->RecipeDimensions->save($recipeDimension)) {
                 $this->Flash->success(__('The recipe dimension has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                //return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The recipe dimension could not be saved. Please, try again.'));
         }

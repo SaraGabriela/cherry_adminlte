@@ -1,48 +1,62 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Sale $sale
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Sale'), ['action' => 'edit', $sale->sale_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Sale'), ['action' => 'delete', $sale->sale_id], ['confirm' => __('Are you sure you want to delete # {0}?', $sale->sale_id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Sales'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Sale'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+
+<section class="content-header">
+  <h1>
+    Venta
+    <small><?php echo __('Ver'); ?></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+  </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+  <div class="row">
+    <div class="col-md-3">
+          <div class="box box-solid">
+            <!-- /.box-body -->
+              <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Detalle</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form role="form">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Tipo de venta:</label>
+                    <dd class="form-control"><?= h($sale->sales_type) ?></dd>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Precio</label>
+                    <dd class="form-control"><?= h($sale->price) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Cantidad</label>
+                       <dd class="form-control"><?= h($sale->quantity) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Fecha</label>
+                       <dd class="form-control"><?= h($sale->date) ?></dd>
+                  </div>
+                </div>
+                <!-- /.box-body -->
+              </form>
+            </div>
+          </div>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="sales view content">
-            <h3><?= h($sale->sale_id) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Sales Type') ?></th>
-                    <td><?= h($sale->sales_type) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Sale Id') ?></th>
-                    <td><?= $this->Number->format($sale->sale_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Stock Id') ?></th>
-                    <td><?= $this->Number->format($sale->stock_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Price') ?></th>
-                    <td><?= $this->Number->format($sale->price) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Quantity') ?></th>
-                    <td><?= $this->Number->format($sale->quantity) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Date') ?></th>
-                    <td><?= h($sale->date) ?></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
+      </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
