@@ -13,14 +13,15 @@ namespace App\Controller;
 class StocksController extends AppController
 {
     /**
-     * Index method
+     * Index method  
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Branches','RecipeDimensions'=>['Recipes','Dimensions']]
+            'contain' => ['Branches','RecipeDimensions'=>['Recipes','Dimensions']],
+            'limit' => 5
         ];
         $stocks = $this->paginate($this->Stocks);
 
@@ -53,6 +54,16 @@ class StocksController extends AppController
         $stock = $this->Stocks->newEmptyEntity();
         if ($this->request->is('post')) {
             $stock = $this->Stocks->patchEntity($stock, $this->request->getData());
+            if($stock2 = $this->paginate($this->Stocks->find('all')->where(['recipe_dimensions_id' => $stock->recipe_dimensions_id, 'branch_id' => $stock->branch_id]))){
+                if(count($stock2)){
+                    foreach($stock2 as $st2){
+                        $stock3 = $this->Stocks->get($st2->stock_id);
+                    }
+                    $stock3->quantity += $stock->quantity;
+                    $this->Stocks->save($stock3);
+                    return $this->redirect(['action' => 'index']);
+                }
+            }
             if ($this->Stocks->save($stock)) {
                 $this->Flash->success(__('The stock has been saved.'));
 
@@ -111,3 +122,4 @@ class StocksController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 }
+

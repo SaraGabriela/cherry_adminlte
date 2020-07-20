@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Recipe;
+
 /**
  * Productions Controller
  *
@@ -17,9 +19,9 @@ class ProductionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
-    {
+    public function index(){
         $this->paginate =([
+            'limit' => 4,
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         $productions = $this->paginate($this->Productions);
@@ -63,14 +65,14 @@ class ProductionsController extends AppController
     public function setPhase($id = null){
         return $this->redirect(['action' => '../ProdrecipeDetails/setPhase', $id]);
     }
-    public function crudo($id = null)
-    {
+
+    public function crudo($id = null){
         //_____________________________/-__________________________________________
         $this->paginate =([
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         $productions = $this->paginate($this->Productions);
-        $this->validatePhase($productions, "inicio");
+        $this->validatePhase($productions, "crudo");
         $this->set(compact('productions'));
     }
 
@@ -80,8 +82,7 @@ class ProductionsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      */
     
-    public function crudoRelleno()
-    {
+    public function crudoRelleno(){
         $this->paginate =([
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
@@ -94,8 +95,7 @@ class ProductionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function decorado()
-    {
+    public function decorado(){
         $this->paginate =([
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
@@ -103,24 +103,19 @@ class ProductionsController extends AppController
         $this->validatePhase($productions, "decorado");
         $this->set(compact('productions'));
     }
-
-
-
-
     /**
-     * View method
+     * View method 
      *
      * @param string|null $id Production id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null){
         $production = $this->Productions->get($id, [
-            'contain' => ['Contracts', 'ProductionRecipes'],
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
 
-        $this->set('production', $production);
+        $this->set(compact('production'));
     }
 
     /**
@@ -128,8 +123,7 @@ class ProductionsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add(){
         $production = $this->Productions->newEmptyEntity();
         $this->loadModel('ProductionRecipes');
         $this->loadModel('ProdrecipeDetails');
@@ -148,40 +142,46 @@ class ProductionsController extends AppController
                 return $this->redirect(['action' =>'index']);
             }
             $this->Flash->error(__('The production could not be saved. Please, try again.'));
-            
         }
         $recipe_dimensions = $this->RecipeDimensions->find('list', ['limit' => 200]);
         $branches = $this->Branches->find('list', ['limit' => 200]);
         $this->set(compact('production','recipe_dimensions','branches'));
     }
-
-
     /**
-     * Edit method
+     * Edit method 
      *
      * @param string|null $id Production id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null){
         $this->loadModel('ProductionRecipes');
         $this->loadModel('ProdrecipeDetails');
         $this->loadModel('RecipeDimensions');
         $this->loadModel('Branches');
+        $this->loadModel('Dimensions');
+        $this->loadModel('Recipes');
         $production = $this->Productions->get($id, [
-            'contain' => ['ProductionRecipes'=>['RecipeDimensions','ProdrecipeDetails']],
+            //'contain' => ['ProductionRecipes'=>['RecipeDimensions','ProdrecipeDetails']],
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $production = $this->Productions->patchEntity($production, $this->request->getData());
-            if ($this->Productions->save($production)) {
-                $this->Flash->success(__('The production has been saved.'));
-
+            $production = $this->Productions->patchEntity($production, $this->request->getData(), [
+                'associated' => [
+                    'ProductionRecipes' => [
+                        'associated' => [
+                            'ProdrecipeDetails'
+                        ]
+                    ]
+                ]
+            ]);
+            if($this->Productions->save($production)){
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The production could not be saved. Please, try again.'));
         }
-        $this->set(compact('production'));
+        $recipeDimensions = $this->ProductionRecipes->RecipeDimensions->find('list', ['limit' => 200]);
+        $branches = $this->Branches->find('list', ['limit' => 200]);
+        $this->set(compact('production','recipeDimensions', 'branches'));
     }
 
     /**
@@ -191,17 +191,16 @@ class ProductionsController extends AppController
      * @return \Cake\Http\Response|null|void Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null){
+       
         $this->request->allowMethod(['post', 'delete']);
-        $production = $this->Productions->get($id);
+        $production = $this->Productions->get($id, [
+            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
+        ]);
         if ($this->Productions->delete($production)) {
             $this->Flash->success(__('The production has been deleted.'));
-        } else {
-            $this->Flash->error(__('The production could not be deleted. Please, try again.'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
     }
-    
 }
+

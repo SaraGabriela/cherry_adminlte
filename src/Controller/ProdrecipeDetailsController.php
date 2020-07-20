@@ -28,12 +28,16 @@ class ProdrecipeDetailsController extends AppController
     }
     public function setPhase($id = null){
         $prodrecipeDetail = $this->ProdrecipeDetails->get($id);
-        if($prodrecipeDetail->phase === 'inicio'){
+        if($prodrecipeDetail->phase === 'crudo'){
             $prodrecipeDetail->phase = "crudo-relleno";
             $this->ProdrecipeDetails->save($prodrecipeDetail);
             return $this->redirect(['action' => '../Productions/crudo-relleno']);
+        }else if($prodrecipeDetail->phase === 'crudo-relleno'){
+            $prodrecipeDetail->phase = "decorado";
+            $this->ProdrecipeDetails->save($prodrecipeDetail);
+            return $this->redirect(['action' => '../Productions/decorado']);
         }
-        $prodrecipeDetail->phase = "decorado";
+        $prodrecipeDetail->phase = "terminado";
         $this->ProdrecipeDetails->save($prodrecipeDetail);
         return $this->redirect(['action' => '../Productions/decorado']);
     }
@@ -119,3 +123,4 @@ class ProdrecipeDetailsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 }
+
