@@ -82,7 +82,7 @@ function myFunction() {
          <br>
           <?= $this->Html->link(__("DETALLES"), ['action' => 'view', $production->id], ['class'=>'text-bold btn btn-primary btn-sm']) ?>
           <?= $this->Html->link(__("EDITAR"), ['action' => 'edit', $production->id], ['class'=>'text-bold btn btn-warning btn-sm']) ?>
-          <?= $this->Form->postLink(__("ELIMINAR"), ['action' => 'delete', $production->id, 'type' => 'delete'], ['confirm' => __('Are you sure you want to delete # {0}?', $production->id), 'class'=>'text-bold btn btn-danger btn-sm']) ?>
+          <?= $this->Form->postLink(__("ELIMINAR"), ['action' => 'delete', $production->id], ['confirm' => __('Are you sure you want to delete # {0}?', $production->id), 'class'=>'text-bold btn btn-danger btn-sm']) ?>
        </div>
     </div><!-- /.box-body -->
   </div><!-- /.box -->

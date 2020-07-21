@@ -22,10 +22,10 @@ class ProductionsController extends AppController
     public function index(){
         $this->paginate =([
             'limit' => 4,
+            'order' => ['Productions.id' => 'DESC'],
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
         $productions = $this->paginate($this->Productions);
-
         $this->set(compact('productions'));
     }
 
@@ -143,12 +143,17 @@ class ProductionsController extends AppController
             }
             $this->Flash->error(__('The production could not be saved. Please, try again.'));
         }
-        $recipe_dimensions = $this->RecipeDimensions->find('list', ['limit' => 200]);
+        //$recipeDimensions = $this->RecipeDimensions->find('list', ['limit' => 200]);
+
+        $this->paginate =([
+            'contain' => ['Recipes','Dimensions'],
+        ]);
+        $recipeDimensions = $this->paginate($this->ProductionRecipes->RecipeDimensions->find('all'));
         $branches = $this->Branches->find('list', ['limit' => 200]);
-        $this->set(compact('production','recipe_dimensions','branches'));
+        $this->set(compact('production','recipeDimensions','branches'));
     }
     /**
-     * Edit method 
+     * Edit method  
      *
      * @param string|null $id Production id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
@@ -165,23 +170,34 @@ class ProductionsController extends AppController
             //'contain' => ['ProductionRecipes'=>['RecipeDimensions','ProdrecipeDetails']],
             'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
         ]);
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $production = $this->Productions->patchEntity($production, $this->request->getData(), [
                 'associated' => [
                     'ProductionRecipes' => [
                         'associated' => [
-                            'ProdrecipeDetails'
+                            'ProdrecipeDetails',
                         ]
                     ]
                 ]
             ]);
             if($this->Productions->save($production)){
+                $this->Flash->success(__('La producción ha sido Actualizada'));
                 return $this->redirect(['action' => 'index']);
             }
+            $this->Flash->error(__('No se puede'));
         }
-        $recipeDimensions = $this->ProductionRecipes->RecipeDimensions->find('list', ['limit' => 200]);
-        $branches = $this->Branches->find('list', ['limit' => 200]);
-        $this->set(compact('production','recipeDimensions', 'branches'));
+        //$recipeDimensions = $this->ProductionRecipes->RecipeDimensions->find('list');
+
+        $branches = $this->Branches->find('all');
+        $prodrecipeDetails = $this->ProdrecipeDetails->find('all');
+
+        $this->paginate =([
+            'contain' => ['Recipes','Dimensions'],
+        ]);
+        $recipeDimensions = $this->paginate($this->ProductionRecipes->RecipeDimensions->find('all'));
+
+        $this->set(compact('production','recipeDimensions', 'branches', 'prodrecipeDetails'));
     }
 
     /**
@@ -192,13 +208,9 @@ class ProductionsController extends AppController
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null){
-       
-        $this->request->allowMethod(['post', 'delete']);
-        $production = $this->Productions->get($id, [
-            'contain' => ['ProductionRecipes'=>['ProdrecipeDetails'=>['Branches'],'RecipeDimensions'=>['Recipes','Dimensions'],],],
-        ]);
-        if ($this->Productions->delete($production)) {
-            $this->Flash->success(__('The production has been deleted.'));
+        $production = $this->Productions->get($id);
+        if ($this->Productions->delete($production)){
+            $this->Flash->success(__('La producción ha sido eliminada'));
             return $this->redirect(['action' => 'index']);
         }
     }

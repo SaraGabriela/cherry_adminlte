@@ -30,8 +30,18 @@
                     <table>
                         <tr id="ta0"> 
                             <tr>
-                            <td><?php echo $this->Form->control('production_recipes.0.recipe_dimension_id', ['options' => $recipe_dimensions]);?>
-                            <td><?php echo $this->Form->control('production_recipes.0.recipe_dimension_id.0.branch', ['options' => $branches]);?>
+                            <!--<td><?php //echo $this->Form->control('production_recipes.0.recipe_dimension_id', ['options' => $recipe_dimensions]);?>-->
+                                <td>
+                                    <div class="form-group">
+                                        <label class="control-label" for="<?php echo "production-recipes-0-recipe-dimension-id";?>">Recipe Dimension</label>
+                                        <select name="<?php echo "production_recipes[0][recipe_dimension_id]";?>" class="form-control" id="<?php echo "production-recipes-0-recipe-dimension-id";?>">
+                                            <?php foreach($recipeDimensions as $n):?>
+                                                <option value="<?php echo $n->recipe_dimensions_id; ?>" selected><?php echo $n['recipe']->comercial_name . " X "  . $n['dimension']->description . "cm";?></option>
+                                            <?php endforeach;?>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><?php echo $this->Form->control('production_recipes.0.prodrecipe_details.0.branch', ['options' => $branches]);?>
                             </tr>
                             <td><?php echo $this->Form->control('production_recipes.0.prodrecipe_details.0.priority');?>                                                                                                    
                             <?php echo $this->Form->hidden('production_recipes.0.prodrecipe_details.0.phase', array('value' => 'esquema'));?>
@@ -54,8 +64,17 @@
     <div style="display:none;" id="htmlDetail">
         <xzztr id="trzzz">
             <xzztr>
-            <xzztd><?php echo $this->Form->control('production_recipes.zzz.recipe_dimension_id', ['options' => $recipe_dimensions]);?>
-            <xzztd><?php echo $this->Form->control('production_recipes.zzz.recipe_dimension_id.zzz.branch', ['options' => $branches]);?>
+            <xzztd><td>
+                       <div class="form-group">
+                           <label class="control-label" for="<?php echo "production-recipes-zzz-recipe-dimension-id";?>">Recipe Dimension</label>
+                           <select name="<?php echo "production_recipes[zzz][recipe_dimension_id]";?>" class="form-control" id="<?php echo "production-recipes-zzz-recipe-dimension-id";?>">
+                               <?php foreach($recipeDimensions as $n):?>
+                                   <option value="<?php echo $n->recipe_dimensions_id; ?>" selected><?php echo $n['recipe']->comercial_name . " X "  . $n['dimension']->description . "cm";?></option>
+                               <?php endforeach;?>
+                           </select>
+                       </div>
+                   </td>
+            <xzztd><?php echo $this->Form->control('production_recipes.zzz.prodrecipe_details.zzz.branch', ['options' => $branches]);?>
             </xzztr>
             <xzztd><?php echo $this->Form->control('production_recipes.zzz.prodrecipe_details.zzz.priority');?>                                                                                                    
             <?php echo $this->Form->hidden('production_recipes.zzz.prodrecipe_details.zzz.phase', array('value' => 'esquema'));?>
@@ -64,7 +83,7 @@
             <xzztd><a style="cursor:pointer;" onclick="$('#trzzz').detach();"><span style="background:#aaa;padding:1px 8px;">-</span></a></xzztd>
         </xzztr>
     </div>
-    <!-- script yang dipanggil dari form detail -->
+    
     <script type="text/javascript">
 
         function clickAddDetail(){
