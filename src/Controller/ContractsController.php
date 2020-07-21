@@ -20,7 +20,7 @@ class ContractsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Clients', 'Productions', 'Alliances'],
+            'contain' => ['Clients', 'Productions', 'Alliances','Branches'],
         ];
         $contracts = $this->paginate($this->Contracts);
 
@@ -37,7 +37,7 @@ class ContractsController extends AppController
     public function view($id = null)
     {
         $contract = $this->Contracts->get($id, [
-            'contain' => ['Clients', 'Productions', 'Alliances', 'ContractRecipes'],
+            'contain' => ['Clients', 'Productions', 'Alliances', 'ContractRecipes','Branches'],
         ]);
 
         $this->set('contract', $contract);
@@ -63,7 +63,8 @@ class ContractsController extends AppController
         $clients = $this->Contracts->Clients->find('list', ['limit' => 200]);
         $productions = $this->Contracts->Productions->find('list', ['limit' => 200]);
         $alliances = $this->Contracts->Alliances->find('list', ['limit' => 200]);
-        $this->set(compact('contract', 'clients', 'productions', 'alliances'));
+        $branches = $this->Contracts->Branches->find('list', ['limit' => 200]);
+        $this->set(compact('contract', 'clients', 'productions', 'alliances','branches'));
     }
 
     /**
@@ -90,7 +91,8 @@ class ContractsController extends AppController
         $clients = $this->Contracts->Clients->find('list', ['limit' => 200]);
         $productions = $this->Contracts->Productions->find('list', ['limit' => 200]);
         $alliances = $this->Contracts->Alliances->find('list', ['limit' => 200]);
-        $this->set(compact('contract', 'clients', 'productions', 'alliances'));
+        $branches = $this->Contracts->Branches->find('list', ['limit' => 200]);
+        $this->set(compact('contract', 'clients', 'productions', 'alliances','branches'));
     }
 
     /**

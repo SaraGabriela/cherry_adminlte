@@ -10,6 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int|null $client_id
+ * @property int|null $branch_id
  * @property int $production_id
  * @property int|null $alliance_id
  * @property \Cake\I18n\FrozenDate $order_date
@@ -17,11 +18,12 @@ use Cake\ORM\Entity;
  * @property string $total_price
  * @property string $account_price
  * @property string $description
- * @property string $ubication
+
  *
  * @property \App\Model\Entity\Client $client
  * @property \App\Model\Entity\Production $production
  * @property \App\Model\Entity\Alliance $alliance
+ * @property \App\Model\Entity\Branch $branch
  * @property \App\Model\Entity\ContractRecipe[] $contract_recipes
  */
 class Contract extends Entity
@@ -37,6 +39,7 @@ class Contract extends Entity
      */
     protected $_accessible = [
         'client_id' => true,
+        'branch_id' => true,
         'production_id' => true,
         'alliance_id' => true,
         'order_date' => true,
@@ -44,10 +47,10 @@ class Contract extends Entity
         'total_price' => true,
         'account_price' => true,
         'description' => true,
-        'ubication' => true,
         'client' => true,
         'production' => true,
         'alliance' => true,
+        'branch' => true,
         'contract_recipes' => true,
     ];
 }

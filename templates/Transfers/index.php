@@ -4,47 +4,69 @@
  * @var \App\Model\Entity\Transfer[]|\Cake\Collection\CollectionInterface $transfers
  */
 ?>
-<div class="transfers index content">
-    <?= $this->Html->link(__('New Transfer'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Transfers') ?></h3>
-    <div class="table-responsive">
-        <table>
+
+
+<section class="content-header">
+  <h1>
+    Tranferencias
+    <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title"><?php echo __('List'); ?></h3>
+
+          <div class="box-tools">
+            <form action="<?php echo $this->Url->build(); ?>" method="POST">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
+
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('date') ?></th>
-                    <th><?= $this->Paginator->sort('manager') ?></th>
-                    <th><?= $this->Paginator->sort('branch_warehouse_origin_id') ?></th>
-                    <th><?= $this->Paginator->sort('branch_warehouse_destiny_id') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+              <tr>
+
+                  <th scope="col"><?= $this->Paginator->sort('date','Fecha') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('manager','Encargado') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('branch_warehouse_origin_id','Origen') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('branch_warehouse_destiny_id','Destino') ?></th>
+
+                  <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
+              </tr>
             </thead>
             <tbody>
-                <?php foreach ($transfers as $transfer): ?>
+              <?php foreach ($transfers as $transfer): ?>
                 <tr>
-                    <td><?= $this->Number->format($transfer->id) ?></td>
-                    <td><?= h($transfer->date) ?></td>
-                    <td><?= h($transfer->manager) ?></td>
-                    <td><?= $this->Number->format($transfer->branch_warehouse_origin_id) ?></td>
-                    <td><?= $transfer->has('branch_warehouse') ? $this->Html->link($transfer->branch_warehouse->id, ['controller' => 'BranchWarehouses', 'action' => 'view', $transfer->branch_warehouse->id]) : '' ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $transfer->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $transfer->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $transfer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $transfer->id)]) ?>
-                    </td>
+                  <td><?= h($transfer->date) ?></td>
+                  <td><?= h($transfer->manager) ?></td>
+                  <td><?= h($transfer->branch_warehouse_origin_id) ?></td>
+                  <td><?= h($transfer->branch_warehouse_destiny_id) ?></td>
+                  <td class="actions text-right">
+                      <?= $this->Html->link(__('View'), ['action' => 'view', $transfer->id], ['class'=>'btn btn-info btn-xs']) ?>
+                      <?= $this->Html->link(__('Edit'), ['action' => 'edit', $transfer->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                      <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $transfer->id], ['confirm' => __('Are you sure you want to delete # {0}?', $transfer->id), 'class'=>'btn btn-danger btn-xs']) ?>
+                  </td>
                 </tr>
-                <?php endforeach; ?>
+              <?php endforeach; ?>
             </tbody>
-        </table>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+  </div>
+</section>

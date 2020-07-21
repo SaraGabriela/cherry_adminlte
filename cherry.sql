@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 07-07-2020 a las 03:27:48
+-- Tiempo de generación: 21-07-2020 a las 18:20:50
 -- Versión del servidor: 8.0.20-0ubuntu0.20.04.1
 -- Versión de PHP: 7.4.3
 
@@ -73,7 +73,7 @@ CREATE TABLE `branch_warehouses` (
 --
 
 INSERT INTO `branch_warehouses` (`id`, `warehouse_id`, `branch_id`) VALUES
-(1, 1, 1);
+(2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -126,6 +126,13 @@ CREATE TABLE `clients` (
   `password` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `lastname`, `email`, `phone`, `user`, `password`) VALUES
+(1, 'Walker Manrique', 'walker', 'walket1239@gmail.com', 974777331, 'walkercito', '123456');
+
 -- --------------------------------------------------------
 
 --
@@ -142,7 +149,7 @@ CREATE TABLE `contracts` (
   `total_price` decimal(10,4) NOT NULL,
   `account_price` decimal(10,4) NOT NULL,
   `description` varchar(600) NOT NULL,
-  `ubication` varchar(450) NOT NULL
+  `branch_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -595,7 +602,10 @@ INSERT INTO `prodrecipe_details` (`id`, `production_recipe_id`, `priority`, `bra
 (2, 1, 'media', 1, 'asdada', 'inicio', 4),
 (3, 2, 'media', 1, 'dsadas', 'inicio', 5),
 (4, 3, 'media', 1, 'sdada', 'inicio', 6),
-(5, 4, 'alta', 1, 'es para el presi', 'inicio', 1);
+(5, 4, 'alta', 1, 'es para el presi', 'inicio', 1),
+(6, 9, 'alta', 1, 'observación', 'esquema', 15),
+(7, 10, 'alta', 1, 'asdas', 'terminado', 12),
+(8, 11, 'alta', 1, 'esta produccion es urgente', 'terminado', 15);
 
 -- --------------------------------------------------------
 
@@ -617,7 +627,10 @@ CREATE TABLE `productions` (
 INSERT INTO `productions` (`id`, `date`, `number_cakes`, `observations`) VALUES
 (1, '2020-05-06', 0, 'chevere'),
 (2, '2020-06-14', 0, 'null'),
-(3, '2020-06-21', 0, 'null');
+(3, '2020-06-21', 0, 'null'),
+(4, '2020-07-20', 0, 'null'),
+(5, '2020-07-20', 0, 'null'),
+(6, '2020-07-20', 0, 'null');
 
 -- --------------------------------------------------------
 
@@ -643,7 +656,10 @@ INSERT INTO `production_recipes` (`id`, `production_id`, `recipe_dimension_id`) 
 (5, 2, 2),
 (6, 2, 4),
 (7, 2, 3),
-(8, 3, 2);
+(8, 3, 2),
+(9, 4, 3),
+(10, 5, 2),
+(11, 6, 4);
 
 -- --------------------------------------------------------
 
@@ -694,6 +710,13 @@ CREATE TABLE `purchases` (
   `provider_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Volcado de datos para la tabla `purchases`
+--
+
+INSERT INTO `purchases` (`id`, `date`, `person_in_charge`, `delivery_date`, `provider_id`) VALUES
+(1, '2020-07-09', 'adsas', '2020-07-03', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -710,6 +733,13 @@ CREATE TABLE `purchase_products` (
   `purchase_id` int NOT NULL,
   `warehouse_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Volcado de datos para la tabla `purchase_products`
+--
+
+INSERT INTO `purchase_products` (`id`, `quantity`, `unit`, `observations`, `cost_by_unit`, `product_id`, `purchase_id`, `warehouse_id`) VALUES
+(1, 1, 4, 'asdas', 1231, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -1106,7 +1136,8 @@ ALTER TABLE `contracts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `alliance_id` (`alliance_id`),
   ADD KEY `client_id` (`client_id`),
-  ADD KEY `production_id` (`production_id`);
+  ADD KEY `production_id` (`production_id`),
+  ADD KEY `contracts_ibfk_4` (`branch_id`);
 
 --
 -- Indices de la tabla `contract_recipes`
@@ -1415,7 +1446,7 @@ ALTER TABLE `branches`
 -- AUTO_INCREMENT de la tabla `branch_warehouses`
 --
 ALTER TABLE `branch_warehouses`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `cakes`
@@ -1433,7 +1464,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de la tabla `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `contracts`
@@ -1529,19 +1560,19 @@ ALTER TABLE `previous_preparations`
 -- AUTO_INCREMENT de la tabla `prodrecipe_details`
 --
 ALTER TABLE `prodrecipe_details`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `productions`
 --
 ALTER TABLE `productions`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `production_recipes`
 --
 ALTER TABLE `production_recipes`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `products`
@@ -1553,13 +1584,13 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT de la tabla `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `purchase_products`
 --
 ALTER TABLE `purchase_products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `raws`
@@ -1683,65 +1714,66 @@ ALTER TABLE `warehouse_products`
 -- Filtros para la tabla `branch_warehouses`
 --
 ALTER TABLE `branch_warehouses`
-  ADD CONSTRAINT `branch_warehouses_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
-  ADD CONSTRAINT `branch_warehouses_ibfk_2` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`);
+  ADD CONSTRAINT `branch_warehouses_ibfk_1` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `branch_warehouses_ibfk_2` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `contracts`
 --
 ALTER TABLE `contracts`
-  ADD CONSTRAINT `contracts_ibfk_1` FOREIGN KEY (`alliance_id`) REFERENCES `alliances` (`id`),
-  ADD CONSTRAINT `contracts_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`),
-  ADD CONSTRAINT `contracts_ibfk_3` FOREIGN KEY (`production_id`) REFERENCES `productions` (`id`);
+  ADD CONSTRAINT `contracts_ibfk_1` FOREIGN KEY (`alliance_id`) REFERENCES `alliances` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contracts_ibfk_2` FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contracts_ibfk_3` FOREIGN KEY (`production_id`) REFERENCES `productions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contracts_ibfk_4` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `contract_recipes`
 --
 ALTER TABLE `contract_recipes`
-  ADD CONSTRAINT `contract_recipes_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`),
-  ADD CONSTRAINT `contract_recipes_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`);
+  ADD CONSTRAINT `contract_recipes_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `contracts` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `contract_recipes_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `decoration_dimensions`
 --
 ALTER TABLE `decoration_dimensions`
-  ADD CONSTRAINT `decoration_dimensions_ibfk_1` FOREIGN KEY (`decoration_id`) REFERENCES `decorations` (`id`),
-  ADD CONSTRAINT `decoration_dimensions_ibfk_2` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`);
+  ADD CONSTRAINT `decoration_dimensions_ibfk_1` FOREIGN KEY (`decoration_id`) REFERENCES `decorations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `decoration_dimensions_ibfk_2` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `decoration_products`
 --
 ALTER TABLE `decoration_products`
-  ADD CONSTRAINT `decoration_products_ibfk_1` FOREIGN KEY (`decoration_id`) REFERENCES `decorations` (`id`),
-  ADD CONSTRAINT `decoration_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `decoration_products_ibfk_1` FOREIGN KEY (`decoration_id`) REFERENCES `decorations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `decoration_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `decoration_product_measures`
 --
 ALTER TABLE `decoration_product_measures`
-  ADD CONSTRAINT `decoration_product_measures_ibfk_1` FOREIGN KEY (`decoration_dimension_id`) REFERENCES `decoration_dimensions` (`id`),
-  ADD CONSTRAINT `decoration_product_measures_ibfk_2` FOREIGN KEY (`decoration_product_id`) REFERENCES `decoration_products` (`id`);
+  ADD CONSTRAINT `decoration_product_measures_ibfk_1` FOREIGN KEY (`decoration_dimension_id`) REFERENCES `decoration_dimensions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `decoration_product_measures_ibfk_2` FOREIGN KEY (`decoration_product_id`) REFERENCES `decoration_products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `equivalence_dimensions`
 --
 ALTER TABLE `equivalence_dimensions`
-  ADD CONSTRAINT `equivalence_dimensions_ibfk_1` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`),
-  ADD CONSTRAINT `equivalence_dimensions_ibfk_2` FOREIGN KEY (`equivalence_id`) REFERENCES `equivalences` (`id`);
+  ADD CONSTRAINT `equivalence_dimensions_ibfk_1` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `equivalence_dimensions_ibfk_2` FOREIGN KEY (`equivalence_id`) REFERENCES `equivalences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `filling_dimensions`
 --
 ALTER TABLE `filling_dimensions`
-  ADD CONSTRAINT `filling_dimensions_ibfk_1` FOREIGN KEY (`raw_filling_id`) REFERENCES `raw_fillings` (`id`),
-  ADD CONSTRAINT `filling_dimensions_ibfk_2` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`);
+  ADD CONSTRAINT `filling_dimensions_ibfk_1` FOREIGN KEY (`raw_filling_id`) REFERENCES `raw_fillings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `filling_dimensions_ibfk_2` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `filling_products`
 --
 ALTER TABLE `filling_products`
-  ADD CONSTRAINT `filling_products_ibfk_1` FOREIGN KEY (`raw_filling_id`) REFERENCES `raw_fillings` (`id`),
-  ADD CONSTRAINT `filling_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `filling_products_ibfk_1` FOREIGN KEY (`raw_filling_id`) REFERENCES `raw_fillings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `filling_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `filling_product_measures`
@@ -1754,28 +1786,28 @@ ALTER TABLE `filling_product_measures`
 -- Filtros para la tabla `preparation_products`
 --
 ALTER TABLE `preparation_products`
-  ADD CONSTRAINT `preparation_products_ibfk_1` FOREIGN KEY (`previous_preparation_id`) REFERENCES `previous_preparations` (`id`),
-  ADD CONSTRAINT `preparation_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `preparation_products_ibfk_1` FOREIGN KEY (`previous_preparation_id`) REFERENCES `previous_preparations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `preparation_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `prodrecipe_details`
 --
 ALTER TABLE `prodrecipe_details`
-  ADD CONSTRAINT `fk_pro_reci` FOREIGN KEY (`production_recipe_id`) REFERENCES `production_recipes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_sucursal` FOREIGN KEY (`branch`) REFERENCES `branches` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_pro_reci` FOREIGN KEY (`production_recipe_id`) REFERENCES `production_recipes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_sucursal` FOREIGN KEY (`branch`) REFERENCES `branches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `production_recipes`
 --
 ALTER TABLE `production_recipes`
-  ADD CONSTRAINT `fk_production` FOREIGN KEY (`production_id`) REFERENCES `productions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_recipes_dim` FOREIGN KEY (`recipe_dimension_id`) REFERENCES `recipe_dimensions` (`recipe_dimensions_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_production` FOREIGN KEY (`production_id`) REFERENCES `productions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_recipes_dim` FOREIGN KEY (`recipe_dimension_id`) REFERENCES `recipe_dimensions` (`recipe_dimensions_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `purchases`
@@ -1787,57 +1819,57 @@ ALTER TABLE `purchases`
 -- Filtros para la tabla `purchase_products`
 --
 ALTER TABLE `purchase_products`
-  ADD CONSTRAINT `purchase_products_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `purchase_products_ibfk_2` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`),
-  ADD CONSTRAINT `purchase_products_ibfk_3` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`);
+  ADD CONSTRAINT `purchase_products_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchase_products_ibfk_2` FOREIGN KEY (`purchase_id`) REFERENCES `purchases` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `purchase_products_ibfk_3` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `raws`
 --
 ALTER TABLE `raws`
-  ADD CONSTRAINT `raws_ibfk_1` FOREIGN KEY (`equivalence_id`) REFERENCES `equivalences` (`id`);
+  ADD CONSTRAINT `raws_ibfk_1` FOREIGN KEY (`equivalence_id`) REFERENCES `equivalences` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `raw_products`
 --
 ALTER TABLE `raw_products`
-  ADD CONSTRAINT `raw_products_ibfk_1` FOREIGN KEY (`raw_id`) REFERENCES `raws` (`id`),
-  ADD CONSTRAINT `raw_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `raw_products_ibfk_1` FOREIGN KEY (`raw_id`) REFERENCES `raws` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `raw_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `recipes`
 --
 ALTER TABLE `recipes`
-  ADD CONSTRAINT `recipes_ibfk_2` FOREIGN KEY (`raw_id`) REFERENCES `raws` (`id`),
-  ADD CONSTRAINT `recipes_ibfk_3` FOREIGN KEY (`raw_filling_id`) REFERENCES `raw_fillings` (`id`),
-  ADD CONSTRAINT `recipes_ibfk_4` FOREIGN KEY (`decoration_id`) REFERENCES `decorations` (`id`);
+  ADD CONSTRAINT `recipes_ibfk_2` FOREIGN KEY (`raw_id`) REFERENCES `raws` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `recipes_ibfk_3` FOREIGN KEY (`raw_filling_id`) REFERENCES `raw_fillings` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `recipes_ibfk_4` FOREIGN KEY (`decoration_id`) REFERENCES `decorations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `recipe_dimensions`
 --
 ALTER TABLE `recipe_dimensions`
-  ADD CONSTRAINT `fk_dimensions` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_recipes` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_dimensions` FOREIGN KEY (`dimension_id`) REFERENCES `dimensions` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_recipes` FOREIGN KEY (`recipe_id`) REFERENCES `recipes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `recipe_product_measures`
 --
 ALTER TABLE `recipe_product_measures`
-  ADD CONSTRAINT `recipe_product_measures_ibfk_1` FOREIGN KEY (`raw_product_id`) REFERENCES `raw_products` (`id`),
-  ADD CONSTRAINT `recipe_product_measures_ibfk_2` FOREIGN KEY (`raw_recipe_id`) REFERENCES `raw_recipes` (`id`);
+  ADD CONSTRAINT `recipe_product_measures_ibfk_1` FOREIGN KEY (`raw_product_id`) REFERENCES `raw_products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `recipe_product_measures_ibfk_2` FOREIGN KEY (`raw_recipe_id`) REFERENCES `raw_recipes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `sales`
 --
 ALTER TABLE `sales`
-  ADD CONSTRAINT `fk_sto_sal` FOREIGN KEY (`sale_id`) REFERENCES `stock` (`stock_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_sto_sal` FOREIGN KEY (`sale_id`) REFERENCES `stock` (`stock_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `stocks`
 --
 ALTER TABLE `stocks`
-  ADD CONSTRAINT `fk_asda` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_asdda` FOREIGN KEY (`recipe_dimensions_id`) REFERENCES `recipe_dimensions` (`recipe_dimensions_id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_asda` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_asdda` FOREIGN KEY (`recipe_dimensions_id`) REFERENCES `recipe_dimensions` (`recipe_dimensions_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `transfers`
@@ -1878,8 +1910,8 @@ ALTER TABLE `transformations`
 -- Filtros para la tabla `warehouse_products`
 --
 ALTER TABLE `warehouse_products`
-  ADD CONSTRAINT `warehouse_products_ibfk_1` FOREIGN KEY (`branch_warehouse_id`) REFERENCES `branch_warehouses` (`id`),
-  ADD CONSTRAINT `warehouse_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `warehouse_products_ibfk_1` FOREIGN KEY (`branch_warehouse_id`) REFERENCES `branch_warehouses` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `warehouse_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

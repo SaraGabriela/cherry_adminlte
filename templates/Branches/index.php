@@ -1,8 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Branches
-
+    Sucursales
     <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
 </section>
@@ -13,7 +12,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title"><?php echo __('List'); ?></h3>
+          <h3 class="box-title"><?php echo __('Lista'); ?></h3>
 
           <div class="box-tools">
             <form action="<?php echo $this->Url->build(); ?>" method="POST">
@@ -32,17 +31,16 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                  <th scope="col"><?= $this->Paginator->sort('id') ?></th>
+
                   <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('address','Dirección') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('person_in_charge') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('person_in_charge','Persona encargada') ?></th>
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($branches as $branch): ?>
                 <tr>
-                  <td><?= $this->Number->format($branch->id) ?></td>
                   <td><?= h($branch->name) ?></td>
                   <td><?= h($branch->address) ?></td>
                   <td><?= h($branch->person_in_charge) ?></td>

@@ -13,7 +13,7 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title"><?php echo __('Tabla de Proveedores'); ?></h3>
+          <h3 class="box-title"><?php echo __('Lista'); ?></h3>
 
           <div class="box-tools">
             <form action="<?php echo $this->Url->build(); ?>" method="POST">
@@ -45,7 +45,7 @@
                   <td><?= h($supplier->name) ?></td>
                   <td><?= h($supplier->address) ?></td>
                   <td><?= h($supplier->contact_name) ?></td>
-                  <td><?= $this->Number->format($supplier->contact_phone) ?></td>
+                  <td><?= h($supplier->contact_phone) ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $supplier->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $supplier->id], ['class'=>'btn btn-warning btn-xs']) ?>

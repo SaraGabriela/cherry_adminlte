@@ -1,8 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Categories
-
+    Categorias
     <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
   </h1>
 </section>
@@ -13,13 +12,12 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title"><?php echo __('List'); ?></h3>
+          <h3 class="box-title"><?php echo __('Detalle'); ?></h3>
 
           <div class="box-tools">
             <form action="<?php echo $this->Url->build(); ?>" method="POST">
               <div class="input-group input-group-sm" style="width: 150px;">
                 <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
-
                 <div class="input-group-btn">
                   <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                 </div>
@@ -32,20 +30,25 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                  <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                   <th scope="col"><?= $this->Paginator->sort('name','Nombre') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('image') ?></th>
-                  <th scope="col"><?= $this->Paginator->sort('state') ?></th>
+                  <th scope="col"><?= $this->Paginator->sort('image','Imagen') ?></th>
+                  
+                  <th scope="col"><?= $this->Paginator->sort('state','Estado') ?></th>
+                  
+
                   <th scope="col" class="actions text-center"><?= __('Actions') ?></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($categories as $category): ?>
                 <tr>
-                  <td><?= $this->Number->format($category->id) ?></td>
                   <td><?= h($category->name) ?></td>
                   <td><?= h($category->image) ?></td>
-                  <td><?= h($category->state) ?></td>
+                  <td> <?php if ($category->state == 1): ?>
+                  <span class="label label-success">Activo</span>
+                  <?php else: ?>
+                  <span class="label label-danger">Desactivado</span>
+                  <?php endif ?></td>
                   <td class="actions text-right">
                       <?= $this->Html->link(__('View'), ['action' => 'view', $category->id], ['class'=>'btn btn-info btn-xs']) ?>
                       <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id], ['class'=>'btn btn-warning btn-xs']) ?>

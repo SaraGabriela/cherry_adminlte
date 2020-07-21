@@ -1,60 +1,72 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Contract[]|\Cake\Collection\CollectionInterface $contracts
- */
-?>
-<div class="contracts index content">
-    <?= $this->Html->link(__('New Contract'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Contracts') ?></h3>
-    <div class="table-responsive">
-        <table>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Contratos
+    <div class="pull-right"><?php echo $this->Html->link(__('New'), ['action' => 'add'], ['class'=>'btn btn-success btn-xs']) ?></div>
+  </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title"><?php echo __('List'); ?></h3>
+
+          <div class="box-tools">
+            <form action="<?php echo $this->Url->build(); ?>" method="POST">
+              <div class="input-group input-group-sm" style="width: 150px;">
+                <input type="text" name="table_search" class="form-control pull-right" placeholder="<?php echo __('Search'); ?>">
+
+                <div class="input-group-btn">
+                  <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
             <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('client_id') ?></th>
-                    <th><?= $this->Paginator->sort('production_id') ?></th>
-                    <th><?= $this->Paginator->sort('alliance_id') ?></th>
-                    <th><?= $this->Paginator->sort('order_date') ?></th>
-                    <th><?= $this->Paginator->sort('delivery_date') ?></th>
-                    <th><?= $this->Paginator->sort('total_price') ?></th>
-                    <th><?= $this->Paginator->sort('account_price') ?></th>
-                    <th><?= $this->Paginator->sort('description') ?></th>
-                    <th><?= $this->Paginator->sort('ubication') ?></th>
+              <tr>
+                    <th><?= $this->Paginator->sort('order_date','Fecha') ?></th>
+                    <th><?= $this->Paginator->sort('branch_id','Sucursal') ?></th>
+
                     <th class="actions"><?= __('Actions') ?></th>
-                </tr>
+              </tr>
             </thead>
             <tbody>
-                <?php foreach ($contracts as $contract): ?>
+              <?php foreach ($contracts as $contract): ?>
                 <tr>
-                    <td><?= $this->Number->format($contract->id) ?></td>
-                    <td><?= $contract->has('client') ? $this->Html->link($contract->client->name, ['controller' => 'Clients', 'action' => 'view', $contract->client->id]) : '' ?></td>
-                    <td><?= $contract->has('production') ? $this->Html->link($contract->production->id, ['controller' => 'Productions', 'action' => 'view', $contract->production->id]) : '' ?></td>
-                    <td><?= $contract->has('alliance') ? $this->Html->link($contract->alliance->id, ['controller' => 'Alliances', 'action' => 'view', $contract->alliance->id]) : '' ?></td>
-                    <td><?= h($contract->order_date) ?></td>
-                    <td><?= h($contract->delivery_date) ?></td>
-                    <td><?= $this->Number->format($contract->total_price) ?></td>
-                    <td><?= $this->Number->format($contract->account_price) ?></td>
-                    <td><?= h($contract->description) ?></td>
-                    <td><?= h($contract->ubication) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $contract->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $contract->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $contract->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contract->id)]) ?>
+                  <td><?= h($contract->order_date) ?></td>
+
+                  <td><?= h($contract->branch->name) ?></td>
+
+                    <td class="actions text-right">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $contract->id], ['class'=>'btn btn-info btn-xs']) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $contract->id], ['class'=>'btn btn-warning btn-xs']) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $contract->id], ['confirm' => __('Are you sure you want to delete # {0}?', $contract->id), 'class'=>'btn btn-danger btn-xs']) ?>
                     </td>
+
+
                 </tr>
-                <?php endforeach; ?>
+              <?php endforeach; ?>
             </tbody>
-        </table>
+          </table>
+        </div>
+        <!-- /.box-body -->
+      </div>
+      <!-- /.box -->
     </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
-</div>
+  </div>
+</section>
+
+
+
+
+
+
+
+

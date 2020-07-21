@@ -7,11 +7,11 @@
 <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Warehouse
-      <small><?php echo __('Add'); ?></small>
+      Almacen
+      <small><?php echo __('Crear'); ?></small>
     </h1>
     <ol class="breadcrumb">
-      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboardd"></i> <?php echo __('Home'); ?></a></li>
     </ol>
   </section>
 
@@ -22,19 +22,23 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title"><?php echo __('Form'); ?></h3>
+            <h3 class="box-title"><?php echo __('Detalle'); ?></h3>
           </div>
           <!-- /.box-header -->
           <!-- form start -->
           <?php echo $this->Form->create($warehouse, ['role' => 'form']); ?>
+
+
             <div class="box-body">
               <?php
-                echo $this->Form->control('type');
+               echo $this->Form->control('type',[
+                'label' => 'Tipo de Almacen',
+              ]); 
               ?>
             </div>
             <!-- /.box-body -->
 
-          <?php echo $this->Form->submit(__('Submit')); ?>
+          <?php echo $this->Form->submit(__('Aceptar')); ?>
 
           <?php echo $this->Form->end(); ?>
         </div>

@@ -1,39 +1,60 @@
+
+
+
+
 <section class="content-header">
   <h1>
-    Proveedor
-    <small><?php echo __('Ver Proveedor'); ?></small>
+    Proovedor
+    <small><?php echo __('Ver'); ?></small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Tabla'); ?></a></li>
+    <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
   </ol>
 </section>
 
 <!-- Main content -->
 <section class="content">
+
   <div class="row">
-    <div class="col-md-12">
-      <div class="box box-solid">
-        <div class="box-header with-border">
-          <i class="fa fa-info"></i>
-          <h3 class="box-title"><?php echo __('Información'); ?></h3>
+    <div class="col-md-3">
+          <div class="box box-solid">
+            <!-- /.box-body -->
+              <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Detalle</h3>
+              </div>
+              <!-- /.box-header -->
+              <!-- form start -->
+              <form role="form">
+                <div class="box-body">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Nombre:</label>
+                    <dd class="form-control"><?= h($supplier->name) ?></dd>
+
+
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Dirección:</label>
+                    <dd class="form-control"><?= h($supplier->address) ?></dd>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Nombre Encargado:</label>
+                       <dd class="form-control"><?= h($supplier->contact_name) ?></dd>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Numero de Telefono:</label>
+                       <dd class="form-control"><?= h($supplier->contact_phone) ?></dd>
+                  </div>
+
+                </div>
+                <!-- /.box-body -->
+
+              </form>
+            </div>
+          </div>
         </div>
-        <!-- /.box-header -->
-        <div class="box-body">
-          <dl class="dl-horizontal">
-            <dt scope="row"><?= __('Identificador') ?></dt>
-            <dd><?= $this->Number->format($supplier->id) ?></dd>
-            <dt scope="row"><?= __('Nombre de Proveedor') ?></dt>
-            <dd><?= h($supplier->name) ?></dd>
-            <dt scope="row"><?= __('Dirección de Proveedor') ?></dt>
-            <dd><?= h($supplier->address) ?></dd>
-            <dt scope="row"><?= __('Nombre del contacto') ?></dt>
-            <dd><?= h($supplier->contact_name) ?></dd>
-            <dt scope="row"><?= __('Telefono del contacto') ?></dt>
-            <dd><?= $this->Number->format($supplier->contact_phone) ?></dd>
-          </dl>
-        </div>
+
       </div>
-    </div>
-  </div>
 
 </section>

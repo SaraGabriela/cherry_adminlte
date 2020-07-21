@@ -4,24 +4,20 @@
  * @var \App\Model\Entity\Contract $contract
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $contract->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $contract->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Contracts'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="contracts form content">
-            <?= $this->Form->create($contract) ?>
-            <fieldset>
-                <legend><?= __('Edit Contract') ?></legend>
-                <?php
+
+<section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><?php echo __('Form'); ?></h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <?= $this->Form->create($contract) ?>
+            <div class="box-body">
+              <?php
                     echo $this->Form->control('client_id', ['options' => $clients, 'empty' => true]);
                     echo $this->Form->control('production_id', ['options' => $productions]);
                     echo $this->Form->control('alliance_id', ['options' => $alliances, 'empty' => true]);
@@ -31,10 +27,16 @@
                     echo $this->Form->control('account_price');
                     echo $this->Form->control('description');
                     echo $this->Form->control('ubication');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+              ?>
+            </div>
+            <!-- /.box-body -->
+
+          <?php echo $this->Form->submit(__('Submit')); ?>
+
+          <?php echo $this->Form->end(); ?>
         </div>
-    </div>
-</div>
+        <!-- /.box -->
+      </div>
+  </div>
+  <!-- /.row -->
+</section>

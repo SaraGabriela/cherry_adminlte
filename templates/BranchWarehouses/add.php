@@ -1,28 +1,46 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\BranchWarehouse $branchWarehouse
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Branch Warehouses'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+<!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Enlazar sucursal con almacen
+      <small><?php echo __('Enlaze'); ?></small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="<?php echo $this->Url->build(['action' => 'index']); ?>"><i class="fa fa-dashboard"></i> <?php echo __('Home'); ?></a></li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><?php echo __('Detalle'); ?></h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <?php echo $this->Form->create($branchWarehouse, ['role' => 'form']); ?>
+            <div class="box-body">
+              <?php
+             echo $this->Form->control('branch_id', ['options' => $branches,
+             'label' => 'Sucursal',
+             ]);
+         
+             echo $this->Form->control('warehouse_id', ['options' => $warehouses,
+                 'label' => 'Tipo de Almacen',
+             ]);
+
+              ?>
+            </div>
+            <!-- /.box-body -->
+
+          <?php echo $this->Form->submit(__('Aceptar')); ?>
+
+          <?php echo $this->Form->end(); ?>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="branchWarehouses form content">
-            <?= $this->Form->create($branchWarehouse) ?>
-            <fieldset>
-                <legend><?= __('Add Branch Warehouse') ?></legend>
-                <?php
-                    echo $this->Form->control('warehouse_id', ['options' => $warehouses]);
-                    echo $this->Form->control('branch_id', ['options' => $branches]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
-</div>
+        <!-- /.box -->
+      </div>
+  </div>
+  <!-- /.row -->
+</section>

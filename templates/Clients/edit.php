@@ -4,34 +4,38 @@
  * @var \App\Model\Entity\Client $client
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $client->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $client->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Clients'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="clients form content">
-            <?= $this->Form->create($client) ?>
-            <fieldset>
-                <legend><?= __('Edit Client') ?></legend>
-                <?php
+
+
+
+<section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title"><?php echo __('Form'); ?></h3>
+          </div>
+          <!-- /.box-header -->
+          <!-- form start -->
+          <?= $this->Form->create($client) ?>
+            <div class="box-body">
+              <?php
                     echo $this->Form->control('name');
                     echo $this->Form->control('lastname');
                     echo $this->Form->control('email');
                     echo $this->Form->control('phone');
                     echo $this->Form->control('user');
                     echo $this->Form->control('password');
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+              ?>
+            </div>
+            <!-- /.box-body -->
+
+          <?php echo $this->Form->submit(__('Submit')); ?>
+
+          <?php echo $this->Form->end(); ?>
         </div>
-    </div>
-</div>
+        <!-- /.box -->
+      </div>
+  </div>
+  <!-- /.row -->
+</section>
